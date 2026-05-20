@@ -6,7 +6,7 @@ const slides = [
   {
     id: 1,
     title: "Hi, I'm Suraj Kumar",
-    subtitle: "Full Stack & Agentic AI Developer",
+    subtitle: "Data Science and Agentic AI Developer",
     img: "/profile.jpg",
     ctaPrimary: { text: "View Projects", href: "#projects" },
     ctaSecondary: { text: "Contact Me", href: "#contact" },

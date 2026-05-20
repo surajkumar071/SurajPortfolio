@@ -13,10 +13,11 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'framer-motion': ['framer-motion'],
-          'react-icons': ['react-icons', 'react-icons/fa', 'react-icons/fa6'],
-          'react-scroll': ['react-scroll'],
+        manualChunks(id) {
+          if (id.includes('framer-motion')) return 'framer-motion'
+          if (id.includes('react-icons')) return 'react-icons'
+          if (id.includes('react-scroll')) return 'react-scroll'
+          return undefined
         },
       },
     },

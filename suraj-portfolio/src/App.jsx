@@ -1,11 +1,14 @@
 import { useState, useEffect, useLayoutEffect, Suspense, lazy } from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaExternalLinkAlt, FaReact, FaNode, FaPython, FaJava, FaCss3Alt, FaHtml5, FaDatabase, FaDocker, FaGitAlt, FaArrowRight, FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaExternalLinkAlt, FaReact, FaNode, FaPython, FaJava, FaCss3Alt, FaHtml5, FaDatabase, FaDocker, FaGitAlt, FaArrowRight, FaWhatsapp, FaPhoneAlt, FaLaptopCode, FaFileWord, FaFileExcel, FaFilePowerpoint, FaGraduationCap, FaSchool, FaCalendarAlt } from "react-icons/fa";
 import { FaXTwitter, FaInstagram } from "react-icons/fa6";
-import { SiTypescript, SiTailwindcss, SiPostgresql, SiMongodb, SiNextdotjs } from "react-icons/si";
+import { SiTypescript, SiTailwindcss, SiMysql, SiMongodb, SiNextdotjs, SiJupyter, SiCanva } from "react-icons/si";
 import ThemeToggle from "./components/ThemeToggle.jsx";
 import HeroSlider from "./components/HeroSlider.jsx";
+import EducationTimeline from "./components/EducationTimeline.jsx";
 const ChatBot = lazy(() => import("./components/ChatBot.jsx"));
+const ResumePage = lazy(() => import("./components/ResumePage.jsx"));
 
 // ============ ANIMATED BACKGROUND ============
 const AnimatedBackground = ({ theme }) => {
@@ -48,8 +51,26 @@ const AnimatedBackground = ({ theme }) => {
 };
 
 // ============ MOBILE MENU ============
-const MobileMenu = ({ isOpen, activeSection, theme }) => {
+const MobileMenu = ({ isOpen, activeSection, currentPath, theme }) => {
   const isDark = theme === "dark";
+  const menuItems = ["Home", "About", "Skills", "Education", "Projects", "Contact", "Resume"];
+
+  const getHref = (item) => {
+    if (item === "Resume") {
+      return "/resume";
+    }
+
+    const sectionHref = `#${item.toLowerCase()}`;
+    return currentPath === "/" ? sectionHref : `/${sectionHref}`;
+  };
+
+  const isItemActive = (item) => {
+    if (item === "Resume") {
+      return currentPath === "/resume";
+    }
+
+    return currentPath === "/" && activeSection === item.toLowerCase();
+  };
 
   return (
     <motion.div
@@ -67,12 +88,12 @@ const MobileMenu = ({ isOpen, activeSection, theme }) => {
         }}
       >
         <div className="flex flex-col gap-2">
-          {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
+          {menuItems.map((item) => (
             <a
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={getHref(item)}
               className={`px-4 py-2 rounded-lg transition font-medium ${
-                activeSection === item.toLowerCase()
+                isItemActive(item)
                   ? "bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg shadow-red-600/20"
                   : isDark
                     ? "text-gray-300 hover:text-red-200"
@@ -89,8 +110,26 @@ const MobileMenu = ({ isOpen, activeSection, theme }) => {
 };
 
 // ============ NAVBAR ============
-const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, theme, onThemeToggle }) => {
+const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, currentPath, theme, onThemeToggle }) => {
   const isDark = theme === "dark";
+  const menuItems = ["Home", "About", "Skills", "Education", "Projects", "Contact", "Resume"];
+
+  const getHref = (item) => {
+    if (item === "Resume") {
+      return "/resume";
+    }
+
+    const sectionHref = `#${item.toLowerCase()}`;
+    return currentPath === "/" ? sectionHref : `/${sectionHref}`;
+  };
+
+  const isItemActive = (item) => {
+    if (item === "Resume") {
+      return currentPath === "/resume";
+    }
+
+    return currentPath === "/" && activeSection === item.toLowerCase();
+  };
 
   return (
     <>
@@ -105,22 +144,28 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, theme, onThe
 
         <div className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
           <motion.a
-            href="#home"
-            whileHover={{ scale: 1.1 }}
-            className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-3xl font-black text-transparent transition duration-300 hover:from-red-500 hover:to-red-300"
+            href="/"
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-3 transition duration-300"
             aria-label="Suraj Kumar home"
           >
-            Suraj Kumar
+            <img
+              src="/site-logo.png"
+              alt="Suraj logo"
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              className="h-10 w-10 rounded-full object-cover"
+            />
+            <span className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-2xl font-black text-transparent hidden sm:inline">Suraj Kumar</span>
           </motion.a>
 
           <div className="hidden gap-2 md:flex">
-            {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
+            {menuItems.map((item) => (
               <motion.a
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                href={getHref(item)}
                 whileHover={{ scale: 1.05 }}
                 className={`rounded-full px-4 py-2 font-medium transition ${
-                  activeSection === item.toLowerCase()
+                  isItemActive(item)
                     ? isDark
                       ? "border border-red-500/50 bg-red-900/60 text-red-100 shadow-lg shadow-red-900/30"
                       : "border border-red-500/40 bg-red-900/10 text-red-600 shadow-lg shadow-red-900/10"
@@ -148,7 +193,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, theme, onThe
         </div>
       </nav>
 
-      <MobileMenu isOpen={mobileMenuOpen} activeSection={activeSection} theme={theme} />
+      <MobileMenu isOpen={mobileMenuOpen} activeSection={activeSection} currentPath={currentPath} theme={theme} />
     </>
   );
 };
@@ -196,7 +241,7 @@ const HeroSection = ({ theme }) => {
 
             <motion.div variants={itemVariants} className="h-12 text-xl font-semibold text-slate-700 transition-all duration-500 sm:text-2xl dark:text-gray-300">
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-                Full Stack & Agentic AI Developer
+                Data Science and Agentic AI Developer
               </motion.div>
             </motion.div>
 
@@ -238,8 +283,14 @@ const HeroSection = ({ theme }) => {
             <div className="group relative">
               <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 3, repeat: Infinity }} className={`absolute inset-0 rounded-full bg-gradient-to-r from-red-600 to-red-400 blur-3xl transition duration-300 group-hover:opacity-50 ${isDark ? "opacity-30" : "opacity-20"}`} />
 
-              <motion.div whileHover={{ scale: 1.05 }} className="relative h-64 w-64 overflow-hidden rounded-full border-2 border-red-200/70 shadow-2xl shadow-red-200/30 transition-all duration-500 sm:h-80 sm:w-80 dark:border-red-700/50 dark:shadow-red-900/35">
-                <img src="/profile.jpg" alt="Suraj Kumar" className="h-full w-full object-cover" />
+              <motion.div whileHover={{ scale: 1.05 }} className="relative h-64 w-64 overflow-hidden rounded-full border-2 border-red-200/70 shadow-2xl shadow-red-200/30 transition-all duration-500 sm:h-80 sm:w-80 dark:border-red-700/50 dark:shadow-red-900/35 group">
+                <img src="/profile.jpg" alt="Suraj Kumar" className="h-full w-full object-cover transition-transform duration-700 will-change-transform group-hover:scale-105" />
+
+                {/* Vignette overlay for premium depth */}
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/10 via-transparent to-black/20 opacity-80 transition-opacity duration-500" />
+
+                {/* Animated shine */}
+                <div className="absolute left-[-40%] top-0 h-full w-1/3 transform rotate-12 bg-white/10 blur-3xl opacity-0 group-hover:opacity-70 group-hover:left-[120%] transition-all duration-900 pointer-events-none" />
               </motion.div>
 
               <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 2.5, repeat: Infinity }} className="absolute -bottom-4 -right-4 rounded-full border border-red-400/50 bg-gradient-to-r from-red-600 to-red-500 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-red-600/50">
@@ -342,8 +393,8 @@ const SkillsSection = ({ theme }) => {
       category: "Frontend",
       skills: [
         { name: "React", icon: FaReact, color: "from-blue-600 to-blue-400" },
-        { name: "TypeScript", icon: SiTypescript, color: "from-blue-600 to-blue-400" },
-        { name: "Tailwind CSS", icon: SiTailwindcss, color: "from-cyan-600 to-cyan-400" },
+        { name: "HTML", icon: FaHtml5, color: "from-orange-600 to-orange-400" },
+        { name: "CSS", icon: SiTailwindcss, color: "from-cyan-600 to-cyan-400" },
         { name: "Next.js", icon: SiNextdotjs, color: "from-gray-600 to-gray-400" },
       ],
     },
@@ -359,10 +410,27 @@ const SkillsSection = ({ theme }) => {
     {
       category: "Databases & Tools",
       skills: [
-        { name: "PostgreSQL", icon: SiPostgresql, color: "from-blue-600 to-blue-400" },
+        { name: "MySQL", icon: SiMysql, color: "from-blue-600 to-blue-400" },
         { name: "MongoDB", icon: SiMongodb, color: "from-green-600 to-green-400" },
-        { name: "Git", icon: FaGitAlt, color: "from-orange-600 to-orange-400" },
         { name: "AWS", icon: FaDatabase, color: "from-orange-600 to-orange-400" },
+      ],
+    },
+    {
+      category: "Development Tools",
+      skills: [
+        { name: "Github", icon: FaGithub, color: "from-gray-700 to-gray-900" },
+        { name: "Git", icon: FaGitAlt, color: "from-orange-600 to-orange-400" },
+        { name: "VS Code", icon: FaLaptopCode, color: "from-blue-600 to-blue-400" },
+        { name: "Jupyter Notebook", icon: SiJupyter, color: "from-orange-600 to-orange-400" },
+        { name: "Canva", icon: SiCanva, color: "from-purple-600 to-purple-400" },
+      ],
+    },
+    {
+      category: "MS Office",
+      skills: [
+        { name: "Word", icon: FaFileWord, color: "from-blue-600 to-blue-400" },
+        { name: "Excel", icon: FaFileExcel, color: "from-green-600 to-green-400" },
+        { name: "PowerPoint", icon: FaFilePowerpoint, color: "from-red-600 to-red-400" },
       ],
     },
   ];
@@ -432,44 +500,12 @@ const SkillsSection = ({ theme }) => {
 const ProjectsSection = ({ theme }) => {
   const projects = [
     {
-      title: "AI Chat Platform",
-      description: "A real-time chat application with AI integration for intelligent responses and smart suggestions.",
-      tags: ["React", "Node.js", "OpenAI", "WebSocket"],
-      image: "🤖",
-      github: "#",
-      live: "#",
-    },
-    {
-      title: "E-Commerce Dashboard",
-      description: "Comprehensive admin dashboard with analytics, inventory management, and real-time updates.",
-      tags: ["React", "TypeScript", "Tailwind", "PostgreSQL"],
-      image: "📊",
-      github: "#",
-      live: "#",
-    },
-    {
-      title: "Task Management App",
-      description: "Collaborative task management tool with real-time synchronization and team features.",
-      tags: ["Next.js", "MongoDB", "Socket.io", "Tailwind"],
-      image: "✅",
-      github: "#",
-      live: "#",
-    },
-    {
-      title: "Social Media Analytics",
-      description: "Analytics platform for tracking social media metrics with beautiful visualizations.",
-      tags: ["React", "D3.js", "Python", "AWS"],
-      image: "📈",
-      github: "#",
-      live: "#",
-    },
-    {
-      title: "Personal Finance Tracker",
-      description: "Smart finance tracking app with AI-powered insights and budget recommendations.",
-      tags: ["React", "Firebase", "Chart.js", "TailwindCSS"],
-      image: "💰",
-      github: "#",
-      live: "#",
+      title: "SmartCreationPoint",
+      description: "A live project built for modern web publishing and content workflows.",
+      tags: ["PHP", "MySQL", "JS", "HTML", "CSS"],
+      image: "/scp-logo.jpg",
+      github: "https://github.com/surajkumar071/smartcreationpoint.git",
+      live: "https://smartcreationpoint.com",
     },
     {
       title: "Portfolio Website",
@@ -517,11 +553,20 @@ const ProjectsSection = ({ theme }) => {
                 <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-red-200/70 bg-white/80 p-6 backdrop-blur-xl transition-all duration-500 hover:border-red-500/50 hover:shadow-glow-lg dark:border-red-800/40 dark:bg-zinc-950/80 dark:bg-none dark:hover:shadow-[0_0_38px_rgba(127,29,29,0.22)]">
                 {/* Image/Icon area */}
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="relative mb-4 flex h-40 w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-red-100 to-white text-7xl transition-all duration-500 dark:from-zinc-900 dark:to-black"
+                  whileHover={{ scale: 1.06 }}
+                  className="relative mb-4 flex h-40 w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-red-100 to-white text-7xl transition-all duration-500 dark:from-zinc-900 dark:to-black group"
                 >
-                  <span className="relative z-10">{project.image}</span>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-40 dark:group-hover:opacity-60 transition pointer-events-none" />
+                  {typeof project.image === "string" && (project.image.startsWith("/") || project.image.startsWith("http") || project.image.endsWith(".png") || project.image.endsWith(".jpg") || project.image.endsWith(".jpeg") || project.image.endsWith(".svg") || project.image.endsWith(".webp")) ? (
+                      <img src={project.image} alt={`${project.title} logo`} className="relative z-10 h-full w-full object-contain transition-transform duration-700 will-change-transform group-hover:scale-105 group-hover:rotate-1" />
+                    ) : (
+                      <span className="relative z-10">{project.image}</span>
+                    )}
+
+                  {/* soft vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-60 transition duration-500 pointer-events-none" />
+
+                  {/* moving shine effect */}
+                  <div className="absolute left-[-50%] top-0 h-full w-1/3 transform rotate-12 bg-white/10 blur-2xl opacity-0 group-hover:opacity-60 group-hover:left-[120%] transition-all duration-900 pointer-events-none" />
                 </motion.div>
 
                 {/* Content */}
@@ -556,7 +601,7 @@ const ProjectsSection = ({ theme }) => {
                     whileHover={{ scale: 1.05 }}
                     className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-red-600 to-red-500 px-4 py-2 text-center font-semibold text-white transition-all duration-500 hover:shadow-glow-lg dark:hover:shadow-[0_0_36px_rgba(127,29,29,0.5)]"
                   >
-                    <FaExternalLinkAlt size={16} /> Demo
+                    <FaExternalLinkAlt size={16} /> Live Preview
                   </motion.a>
                 </div>
               </div>
@@ -758,6 +803,8 @@ const Footer = ({ theme }) => {
 
 // ============ MAIN APP ============
 export default function App() {
+  const location = useLocation();
+  const isResumePage = location.pathname === "/resume";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [theme, setTheme] = useState(() => {
@@ -765,12 +812,20 @@ export default function App() {
       return "dark";
     }
 
-    return localStorage.getItem("theme") || "dark";
+    try {
+      return window.localStorage.getItem("theme") || "dark";
+    } catch {
+      return "dark";
+    }
   });
 
   useEffect(() => {
+    if (isResumePage) {
+      return undefined;
+    }
+
     const handleScroll = () => {
-      const sections = ["home", "about", "skills", "projects", "contact"];
+      const sections = ["home", "about", "skills", "education", "projects", "contact"];
       for (let section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -785,17 +840,31 @@ export default function App() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isResumePage]);
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [location]);
 
   useEffect(() => {
     setMobileMenuOpen(false);
-  }, [activeSection]);
+  }, [activeSection, location.pathname]);
 
   useLayoutEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
     root.style.colorScheme = theme;
-    localStorage.setItem("theme", theme);
+    try {
+      window.localStorage.setItem("theme", theme);
+    } catch {
+      // Ignore storage failures and keep rendering.
+    }
     const themeMeta = document.querySelector('meta[name="theme-color"]');
     if (themeMeta) {
       themeMeta.setAttribute("content", theme === "dark" ? "#000000" : "#fafafa");
@@ -817,16 +886,56 @@ export default function App() {
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
         activeSection={activeSection}
+        currentPath={location.pathname}
         theme={theme}
         onThemeToggle={handleThemeToggle}
       />
-      <main>
-        <HeroSlider theme={theme} />
-        <AboutSection theme={theme} />
-        <SkillsSection theme={theme} />
-        <ProjectsSection theme={theme} />
-        <ContactSection theme={theme} />
-      </main>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <main>
+              <HeroSlider theme={theme} />
+              <AboutSection theme={theme} />
+              <SkillsSection theme={theme} />
+              <EducationTimeline theme={theme} />
+              <ProjectsSection theme={theme} />
+              <ContactSection theme={theme} />
+            </main>
+          }
+        />
+        <Route
+          path="/resume"
+          element={
+            <Suspense fallback={null}>
+              <main>
+                <ResumePage theme={theme} />
+              </main>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/education"
+          element={
+            <main>
+              <EducationTimeline theme={theme} />
+            </main>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <main>
+              <HeroSlider theme={theme} />
+              <AboutSection theme={theme} />
+              <SkillsSection theme={theme} />
+              <EducationTimeline theme={theme} />
+              <ProjectsSection theme={theme} />
+              <ContactSection theme={theme} />
+            </main>
+          }
+        />
+      </Routes>
       <Suspense fallback={null}>
         <ChatBot />
       </Suspense>

@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 
@@ -9,9 +10,15 @@ const root = createRoot(document.getElementById('root'))
 if (import.meta.env.DEV) {
   root.render(
     <StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </StrictMode>,
   )
 } else {
-  root.render(<App />)
+  root.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  )
 }
