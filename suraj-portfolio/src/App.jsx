@@ -1,15 +1,19 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaExternalLinkAlt, FaReact, FaNode, FaPython, FaJava, FaCss3Alt, FaHtml5, FaDatabase, FaDocker, FaGitAlt, FaArrowRight } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaExternalLinkAlt, FaReact, FaNode, FaPython, FaJava, FaCss3Alt, FaHtml5, FaDatabase, FaDocker, FaGitAlt, FaArrowRight, FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
+import { FaXTwitter, FaInstagram } from "react-icons/fa6";
 import { SiTypescript, SiTailwindcss, SiPostgresql, SiMongodb, SiNextdotjs } from "react-icons/si";
 import ThemeToggle from "./components/ThemeToggle.jsx";
+import HeroSlider from "./components/HeroSlider.jsx";
+import ChatBot from "./components/ChatBot.jsx";
 
 // ============ ANIMATED BACKGROUND ============
 const AnimatedBackground = ({ theme }) => {
   return (
     <div
-      className="fixed inset-0 -z-10 overflow-hidden transition-all duration-500"
-      style={{ backgroundColor: theme === "dark" ? "#020202" : "#fafafa" }}
+      className={`fixed inset-0 -z-10 overflow-hidden transition-all duration-500 ${
+        theme === "dark" ? "bg-[#020202]" : "bg-[#fafafa]"
+      }`}
     >
       {/* Gradient blobs */}
       <motion.div
@@ -90,8 +94,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, theme, onThe
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50">
-        {/* Blurred background */}
+      <nav className="fixed top-0 z-50 w-full">
         <div
           className="absolute inset-0 backdrop-blur-xl transition-all duration-500"
           style={{
@@ -100,18 +103,15 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, theme, onThe
           }}
         />
 
-        {/* Content */}
-        <div className="relative flex items-center justify-between px-4 py-4 mx-auto max-w-7xl sm:px-6">
-          {/* Logo */}
+        <div className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
           <motion.a
             href="#home"
             whileHover={{ scale: 1.1 }}
-            className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 transition duration-300 hover:from-red-500 hover:to-red-300"
+            className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-3xl font-black text-transparent transition duration-300 hover:from-red-500 hover:to-red-300"
           >
             SK
           </motion.a>
 
-          {/* Desktop Navigation */}
           <div className="hidden gap-2 md:flex">
             {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
               <motion.a
@@ -135,7 +135,6 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, theme, onThe
 
           <div className="flex items-center gap-2">
             <ThemeToggle theme={theme} onToggle={onThemeToggle} />
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="relative flex h-10 w-10 items-center justify-center text-red-600 transition hover:text-red-500 md:hidden"
@@ -148,7 +147,6 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, theme, onThe
         </div>
       </nav>
 
-      {/* Mobile Menu */}
       <MobileMenu isOpen={mobileMenuOpen} activeSection={activeSection} theme={theme} />
     </>
   );
@@ -183,9 +181,9 @@ const HeroSection = ({ theme }) => {
       <div className="max-w-6xl mx-auto w-full">
         <motion.div variants={containerVariants} initial="hidden" animate="visible" className="grid gap-8 items-center md:grid-cols-2 md:gap-12">
           <motion.div variants={itemVariants} className="space-y-6 md:space-y-8">
-            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.1 }} className="inline-block">
-              <div className="rounded-full border border-red-900/30 bg-gradient-to-r from-red-900/20 to-red-900/10 px-4 py-2 backdrop-blur-sm dark:border-red-800/40 dark:from-red-950/60 dark:to-black/70">
-                <span className="text-sm font-medium tracking-wider text-red-400">✨ Welcome to my portfolio</span>
+              <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.1 }} className="inline-block">
+              <div className="rounded-full border border-red-900/30 bg-gradient-to-r from-red-900/20 to-red-900/10 px-4 py-2 backdrop-blur-sm dark:border-red-800/40 dark:from-red-950/60 dark:to-black/70 cursor-pointer transition-transform duration-300 hover:scale-105 hover:shadow-glow-lg dark:hover:shadow-[0_0_48px_rgba(127,29,29,0.5)] group">
+                <span className="text-sm font-medium tracking-wider text-red-400 transition-colors duration-300 group-hover:text-red-200">✨ Welcome to my portfolio</span>
               </div>
             </motion.div>
 
@@ -216,9 +214,11 @@ const HeroSection = ({ theme }) => {
 
             <motion.div variants={itemVariants} className="flex gap-4 pt-4">
               {[
-                { icon: FaGithub, href: "https://github.com", label: "GitHub" },
-                { icon: FaLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
-                { icon: FaEnvelope, href: "mailto:your@email.com", label: "Email" },
+                { icon: FaGithub, href: "https://github.com/surajkumar071", label: "GitHub" },
+                { icon: FaLinkedin, href: "https://www.linkedin.com/in/surajkumar071", label: "LinkedIn" },
+                { icon: FaXTwitter, href: "https://x.com/_surajnirala_", label: "Twitter / X" },
+                { icon: FaInstagram, href: "https://www.instagram.com/_surajnirala_", label: "Instagram" },
+                { icon: FaEnvelope, href: "mailto:surajnirala9006@gmail.com", label: "Email" },
               ].map((social, index) => (
                 <motion.a
                   key={index}
@@ -513,14 +513,14 @@ const ProjectsSection = ({ theme }) => {
               <div className="absolute inset-0 bg-gradient-to-r from-red-600/0 via-red-600/20 to-red-600/0 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500" />
 
               {/* Card */}
-              <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-red-200/70 bg-white/80 p-6 backdrop-blur-xl transition-all duration-500 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-500/10 dark:border-red-800/40 dark:bg-zinc-950/80 dark:bg-none dark:hover:shadow-black/30">
+                <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-red-200/70 bg-white/80 p-6 backdrop-blur-xl transition-all duration-500 hover:border-red-500/50 hover:shadow-glow-lg dark:border-red-800/40 dark:bg-zinc-950/80 dark:bg-none dark:hover:shadow-[0_0_38px_rgba(127,29,29,0.22)]">
                 {/* Image/Icon area */}
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   className="relative mb-4 flex h-40 w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-red-100 to-white text-7xl transition-all duration-500 dark:from-zinc-900 dark:to-black"
                 >
-                  {project.image}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition" />
+                  <span className="relative z-10">{project.image}</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-40 dark:group-hover:opacity-60 transition pointer-events-none" />
                 </motion.div>
 
                 {/* Content */}
@@ -546,14 +546,14 @@ const ProjectsSection = ({ theme }) => {
                   <motion.a
                     href={project.github}
                     whileHover={{ scale: 1.05 }}
-                    className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-red-500/30 bg-red-50 px-4 py-2 text-center font-semibold text-red-700 transition-all duration-500 hover:bg-red-100 dark:border-red-900/40 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/40"
+                    className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-red-500/30 bg-red-50 px-4 py-2 text-center font-semibold text-red-700 transition-all duration-500 hover:bg-red-100 hover:shadow-glow-lg dark:border-red-900/40 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/40 dark:hover:shadow-[0_0_36px_rgba(127,29,29,0.45)]"
                   >
                     <FaGithub size={16} /> Code
                   </motion.a>
                   <motion.a
                     href={project.live}
                     whileHover={{ scale: 1.05 }}
-                    className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-red-600 to-red-500 px-4 py-2 text-center font-semibold text-white transition-all duration-500 hover:shadow-lg hover:shadow-red-600/50"
+                    className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-red-600 to-red-500 px-4 py-2 text-center font-semibold text-white transition-all duration-500 hover:shadow-glow-lg dark:hover:shadow-[0_0_36px_rgba(127,29,29,0.5)]"
                   >
                     <FaExternalLinkAlt size={16} /> Demo
                   </motion.a>
@@ -573,7 +573,7 @@ const ProjectsSection = ({ theme }) => {
           <motion.a
             href="#"
             whileHover={{ scale: 1.05 }}
-            className="inline-block rounded-full border border-red-600/40 bg-red-50 px-8 py-4 font-bold text-red-700 transition-all duration-500 hover:shadow-lg hover:shadow-red-500/10 dark:bg-gradient-to-r dark:from-red-900/40 dark:to-red-900/20 dark:text-red-300 dark:hover:from-red-900/60 dark:hover:to-red-900/40 dark:hover:shadow-red-900/30"
+            className="inline-block rounded-full border border-red-600/40 bg-red-50 px-8 py-4 font-bold text-red-700 transition-all duration-500 hover:shadow-lg hover:shadow-red-500/10 dark:bg-gradient-to-r dark:from-red-900/40 dark:to-red-900/20 dark:text-red-300 dark:hover:from-red-900/50 dark:hover:to-red-900/30 dark:hover:shadow-red-900/10"
           >
             View All Projects →
           </motion.a>
@@ -585,14 +585,6 @@ const ProjectsSection = ({ theme }) => {
 
 // ============ CONTACT SECTION ============
 const ContactSection = ({ theme }) => {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log(formData);
-  };
-
   return (
     <section id="contact" className="bg-white px-4 py-20 transition-all duration-500 dark:bg-[#050505] sm:px-6">
       <div className="max-w-4xl mx-auto">
@@ -610,125 +602,64 @@ const ContactSection = ({ theme }) => {
           <p className="text-lg text-slate-600 transition-all duration-500 dark:text-gray-400">Have a project in mind? Let's talk!</p>
         </motion.div>
 
-        {/* Contact Content */}
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Left - Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
-          >
-            <div>
-              <h3 className="mb-2 text-2xl font-bold text-slate-950 transition-all duration-500 dark:text-white">Get in Touch</h3>
-              <p className="text-slate-600 transition-all duration-500 dark:text-gray-400">
-                I'm always open to new opportunities and interesting projects. Feel free to reach out!
-              </p>
-            </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative overflow-hidden rounded-3xl border border-red-300/50 bg-gradient-to-br from-black via-[#120505] to-[#2a0505] p-6 shadow-[0_28px_90px_rgba(220,38,38,0.18)] backdrop-blur-xl transition-all duration-500 dark:border-red-700/50 dark:from-black dark:via-[#120505] dark:to-[#2a0505] dark:shadow-[0_28px_110px_rgba(220,38,38,0.25)] sm:p-8"
+        >
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(248,113,113,0.22),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(127,29,29,0.32),transparent_28%),linear-gradient(to_bottom_right,rgba(255,255,255,0.02),rgba(0,0,0,0.18))]" />
 
-            {/* Contact Info */}
-            <div className="space-y-4">
-              {[
-                { label: "Email", value: "suraj@example.com", icon: FaEnvelope },
-                { label: "LinkedIn", value: "linkedin.com/in/suraj", icon: FaLinkedin },
-                { label: "GitHub", value: "github.com/suraj", icon: FaGithub },
-              ].map((contact, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ x: 10 }}
-                  className="flex gap-4 rounded-lg border border-red-200/70 bg-white/75 p-4 transition-all duration-500 hover:border-red-500/50 dark:border-red-800/40 dark:bg-zinc-950/80 dark:hover:bg-zinc-900"
-                >
-                  <div className="mt-1 text-xl text-red-500 dark:text-red-400">
-                    <contact.icon />
+          <div className="mb-6 max-w-2xl">
+            <h3 className="mb-2 text-3xl font-black tracking-tight text-slate-950 transition-all duration-500 dark:text-white">
+              Get in Touch
+            </h3>
+            <p className="max-w-xl text-slate-700 transition-all duration-500 dark:text-gray-300">
+              I'm always open to new opportunities and interesting projects. Feel free to reach out through any of these channels.
+            </p>
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {[
+              { label: "WhatsApp", value: "+91 9006192179", href: "https://wa.me/919006192179", icon: FaWhatsapp, action: "Chat on WhatsApp" },
+              { label: "Email", value: "surajnirala9006@gmail.com", href: "mailto:surajnirala9006@gmail.com", icon: FaEnvelope, action: "Send Email" },
+              { label: "GitHub", value: "github.com/surajkumar071", href: "https://github.com/surajkumar071", icon: FaGithub, action: "View Profile" },
+              { label: "LinkedIn", value: "linkedin.com/in/surajkumar071", href: "https://www.linkedin.com/in/surajkumar071", icon: FaLinkedin, action: "Open Profile" },
+              { label: "Twitter / X", value: "x.com/_surajnirala_", href: "https://x.com/_surajnirala_", icon: FaXTwitter, action: "Open X" },
+              { label: "Instagram", value: "instagram.com/_surajnirala_", href: "https://www.instagram.com/_surajnirala_", icon: FaInstagram, action: "Open Instagram" },
+              { label: "Phone", value: "+91 9006192179", href: "tel:+919006192179", icon: FaPhoneAlt, action: "Call Now" },
+            ].map((contact) => (
+              <motion.a
+                key={contact.label}
+                href={contact.href}
+                target={contact.href.startsWith("http") ? "_blank" : undefined}
+                rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
+                whileHover={{ y: -8, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative overflow-hidden rounded-2xl border border-red-300/30 bg-gradient-to-r from-white/10 via-white/6 to-white/12 px-4 py-4 shadow-[0_12px_35px_rgba(0,0,0,0.2)] transition-all duration-500 hover:border-red-400/60 hover:bg-gradient-to-r hover:from-red-950/45 hover:via-[#1b0909]/70 hover:to-black/80 hover:shadow-[0_24px_55px_rgba(220,38,38,0.2)] dark:border-red-700/30 dark:bg-gradient-to-r dark:from-white/8 dark:via-white/5 dark:to-white/10 dark:hover:shadow-[0_24px_60px_rgba(220,38,38,0.28)]"
+              >
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-red-500/0 via-red-500/0 to-red-500/0 opacity-0 transition duration-500 group-hover:from-red-500/20 group-hover:via-transparent group-hover:to-orange-500/20 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-red-500/20 blur-2xl opacity-0 transition duration-500 group-hover:opacity-100" />
+
+                <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 via-red-600 to-red-900 text-white shadow-lg shadow-red-600/30 ring-1 ring-white/15 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                    <contact.icon size={18} />
                   </div>
                   <div>
-                    <p className="text-sm text-slate-500 transition-all duration-500 dark:text-gray-400">{contact.label}</p>
-                    <p className="font-semibold text-slate-900 transition-all duration-500 dark:text-white">{contact.value}</p>
+                    <p className="font-semibold text-slate-950 transition-all duration-500 dark:text-white">{contact.label}</p>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Social Links */}
-            <div>
-              <p className="mb-4 text-slate-600 transition-all duration-500 dark:text-gray-400">Follow me on social media</p>
-              <div className="flex gap-4">
-                {[
-                  { icon: FaGithub, href: "#" },
-                  { icon: FaLinkedin, href: "#" },
-                  { icon: FaEnvelope, href: "#" },
-                ].map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.href}
-                    whileHover={{ scale: 1.2, y: -5 }}
-                    className="rounded-full border border-red-200/70 bg-red-50 p-3 text-red-600 transition-all duration-500 hover:bg-red-100 dark:border-red-900/30 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/40"
-                  >
-                    <social.icon size={24} />
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right - Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-2xl border border-red-200/70 bg-white/80 p-6 backdrop-blur-xl transition-all duration-500 dark:border-red-800/40 dark:bg-zinc-950/80"
-          >
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Name Input */}
-              <div>
-                <label className="mb-2 block font-medium text-slate-700 transition-all duration-500 dark:text-gray-300">Name</label>
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full rounded-lg border border-red-200/70 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all duration-500 focus:border-red-600 focus:outline-none dark:border-red-900/30 dark:bg-black/50 dark:text-white dark:placeholder-gray-600"
-                />
-              </div>
-
-              {/* Email Input */}
-              <div>
-                <label className="mb-2 block font-medium text-slate-700 transition-all duration-500 dark:text-gray-300">Email</label>
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full rounded-lg border border-red-200/70 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all duration-500 focus:border-red-600 focus:outline-none dark:border-red-900/30 dark:bg-black/50 dark:text-white dark:placeholder-gray-600"
-                />
-              </div>
-
-              {/* Message Input */}
-              <div>
-                <label className="mb-2 block font-medium text-slate-700 transition-all duration-500 dark:text-gray-300">Message</label>
-                <textarea
-                  placeholder="Your message..."
-                  rows="5"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full resize-none rounded-lg border border-red-200/70 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-all duration-500 focus:border-red-600 focus:outline-none dark:border-red-900/30 dark:bg-black/50 dark:text-white dark:placeholder-gray-600"
-                />
-              </div>
-
-              {/* Submit Button */}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="submit"
-                className="w-full rounded-lg bg-gradient-to-r from-red-600 to-red-500 px-6 py-3 font-bold text-white transition-all duration-500 hover:shadow-xl hover:shadow-red-600/50"
-              >
-                Send Message
-              </motion.button>
-            </form>
-          </motion.div>
-        </div>
+                </div>
+                <div className="ml-auto flex flex-col items-end gap-1 text-right">
+                  <p className="text-sm text-slate-600 transition-all duration-500 dark:text-red-100/85">{contact.value}</p>
+                  <span className="relative z-10 shrink-0 whitespace-nowrap text-right text-[11px] font-semibold uppercase tracking-[0.16em] text-red-700 transition-colors duration-500 group-hover:text-white dark:text-red-200">
+                    {contact.action}
+                  </span>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -783,15 +714,21 @@ const Footer = ({ theme }) => {
             <h4 className="mb-4 font-bold text-slate-950 transition-all duration-500 dark:text-white">Follow</h4>
             <div className="flex gap-4">
               {[
-                { icon: FaGithub, href: "#" },
-                { icon: FaLinkedin, href: "#" },
-                { icon: FaEnvelope, href: "#" },
+                { icon: FaGithub, href: "https://github.com/surajkumar071" },
+                { icon: FaLinkedin, href: "https://www.linkedin.com/in/surajkumar071" },
+                { icon: FaXTwitter, href: "https://x.com/_surajnirala_" },
+                { icon: FaInstagram, href: "https://www.instagram.com/_surajnirala_" },
+                  { icon: FaEnvelope, href: "mailto:surajnirala9006@gmail.com?subject=Portfolio%20Inquiry" },
               ].map((social, index) => (
                 <motion.a
                   key={index}
                   href={social.href}
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
+                  rel={social.href.startsWith("http") ? "noreferrer" : undefined}
+                  aria-label={social.href.includes("github") ? "GitHub" : social.href.includes("linkedin") ? "LinkedIn" : social.href.includes("x.com") ? "Twitter / X" : social.href.includes("instagram") ? "Instagram" : "Email"}
+                  title={social.href.includes("github") ? "GitHub" : social.href.includes("linkedin") ? "LinkedIn" : social.href.includes("x.com") ? "Twitter / X" : social.href.includes("instagram") ? "Instagram" : "Email"}
                   whileHover={{ scale: 1.2 }}
-                  className="rounded-full bg-red-50 p-2 text-red-600 transition-all duration-500 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/40"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-red-50 p-2 text-red-600 transition-all duration-500 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/40"
                 >
                   <social.icon size={20} />
                 </motion.a>
@@ -806,10 +743,10 @@ const Footer = ({ theme }) => {
             © 2026 Suraj Kumar. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-sm text-slate-600 transition-all duration-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400">
+            <a href="mailto:surajnirala9006@gmail.com" className="text-sm text-slate-600 transition-all duration-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400">
               Privacy
             </a>
-            <a href="#" className="text-sm text-slate-600 transition-all duration-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400">
+            <a href="tel:+919006192179" className="text-sm text-slate-600 transition-all duration-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400">
               Terms
             </a>
           </div>
@@ -871,11 +808,9 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen overflow-x-hidden transition-all duration-500 scroll-smooth"
-      style={{
-        backgroundColor: theme === "dark" ? "#020202" : "#fafafa",
-        color: theme === "dark" ? "#ffffff" : "#111827",
-      }}
+      className={`min-h-screen overflow-x-hidden transition-all duration-500 scroll-smooth ${
+        theme === "dark" ? "bg-[#020202] text-white" : "bg-[#fafafa] text-slate-900"
+      }`}
     >
       <AnimatedBackground theme={theme} />
       <Navbar
@@ -886,12 +821,13 @@ export default function App() {
         onThemeToggle={handleThemeToggle}
       />
       <main>
-        <HeroSection theme={theme} />
+        <HeroSlider theme={theme} />
         <AboutSection theme={theme} />
         <SkillsSection theme={theme} />
         <ProjectsSection theme={theme} />
         <ContactSection theme={theme} />
       </main>
+      <ChatBot />
       <Footer theme={theme} />
     </div>
   );
