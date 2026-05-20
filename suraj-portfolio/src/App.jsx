@@ -1,11 +1,11 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect, useLayoutEffect, Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaExternalLinkAlt, FaReact, FaNode, FaPython, FaJava, FaCss3Alt, FaHtml5, FaDatabase, FaDocker, FaGitAlt, FaArrowRight, FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { FaXTwitter, FaInstagram } from "react-icons/fa6";
 import { SiTypescript, SiTailwindcss, SiPostgresql, SiMongodb, SiNextdotjs } from "react-icons/si";
 import ThemeToggle from "./components/ThemeToggle.jsx";
 import HeroSlider from "./components/HeroSlider.jsx";
-import ChatBot from "./components/ChatBot.jsx";
+const ChatBot = lazy(() => import("./components/ChatBot.jsx"));
 
 // ============ ANIMATED BACKGROUND ============
 const AnimatedBackground = ({ theme }) => {
@@ -108,8 +108,9 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, theme, onThe
             href="#home"
             whileHover={{ scale: 1.1 }}
             className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-3xl font-black text-transparent transition duration-300 hover:from-red-500 hover:to-red-300"
+            aria-label="Suraj Kumar home"
           >
-            SK
+            Suraj Kumar
           </motion.a>
 
           <div className="hidden gap-2 md:flex">
@@ -573,7 +574,7 @@ const ProjectsSection = ({ theme }) => {
           <motion.a
             href="#"
             whileHover={{ scale: 1.05 }}
-            className="inline-block rounded-full border border-red-600/40 bg-red-50 px-8 py-4 font-bold text-red-700 transition-all duration-500 hover:shadow-lg hover:shadow-red-500/10 dark:bg-gradient-to-r dark:from-red-900/40 dark:to-red-900/20 dark:text-red-300 dark:hover:from-red-900/50 dark:hover:to-red-900/30 dark:hover:shadow-red-900/10"
+            className="inline-block rounded-full border border-red-600/40 bg-red-50 px-8 py-4 font-bold text-red-700 transition-all duration-500 hover:shadow-lg hover:shadow-red-500/10 dark:border-red-700/60 dark:bg-transparent dark:text-white dark:hover:bg-red-700/40 dark:hover:text-white dark:hover:shadow-[0_0_36px_rgba(127,29,29,0.6)]"
           >
             View All Projects →
           </motion.a>
@@ -628,7 +629,6 @@ const ContactSection = ({ theme }) => {
               { label: "LinkedIn", value: "linkedin.com/in/surajkumar071", href: "https://www.linkedin.com/in/surajkumar071", icon: FaLinkedin, action: "Open Profile" },
               { label: "Twitter / X", value: "x.com/_surajnirala_", href: "https://x.com/_surajnirala_", icon: FaXTwitter, action: "Open X" },
               { label: "Instagram", value: "instagram.com/_surajnirala_", href: "https://www.instagram.com/_surajnirala_", icon: FaInstagram, action: "Open Instagram" },
-              { label: "Phone", value: "+91 9006192179", href: "tel:+919006192179", icon: FaPhoneAlt, action: "Call Now" },
             ].map((contact) => (
               <motion.a
                 key={contact.label}
@@ -678,7 +678,7 @@ const Footer = ({ theme }) => {
             viewport={{ once: true }}
           >
             <h3 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 mb-2">
-              SK
+              Suraj Kumar
             </h3>
             <p className="text-slate-600 transition-all duration-500 dark:text-gray-400">Building amazing digital experiences</p>
           </motion.div>
@@ -827,7 +827,9 @@ export default function App() {
         <ProjectsSection theme={theme} />
         <ContactSection theme={theme} />
       </main>
-      <ChatBot />
+      <Suspense fallback={null}>
+        <ChatBot />
+      </Suspense>
       <Footer theme={theme} />
     </div>
   );
