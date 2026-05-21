@@ -155,7 +155,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, currentPath,
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
               className="h-10 w-10 rounded-full object-cover"
             />
-            <span className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-2xl font-black text-transparent hidden sm:inline">Suraj Kumar</span>
+            <span className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-base font-black leading-none text-transparent sm:text-2xl">Suraj Kumar</span>
           </motion.a>
 
           <div className="hidden gap-2 md:flex">
