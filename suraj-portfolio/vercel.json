@@ -1,10 +1,6 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build"
-    }
-  ],
-  "routes": []
+  "installCommand": "cd suraj-portfolio && npm ci",
+  "buildCommand": "cd suraj-portfolio && npm run build",
+  "outputDirectory": "suraj-portfolio/dist"
 }
