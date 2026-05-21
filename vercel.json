@@ -2,5 +2,11 @@
   "version": 2,
   "installCommand": "cd suraj-portfolio && npm ci",
   "buildCommand": "cd suraj-portfolio && npm run build",
-  "outputDirectory": "suraj-portfolio/dist"
+  "outputDirectory": "suraj-portfolio/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
