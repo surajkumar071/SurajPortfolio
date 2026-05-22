@@ -19,6 +19,7 @@ const TimelineCard = ({ item, side, isDark }) => {
             : "border border-gray-100 bg-white/80 shadow-2xl backdrop-blur-sm hover:-translate-y-1 hover:shadow-[0_22px_44px_rgba(15,23,42,0.08)]"
         }`}
       >
+        
         {/* Decorative overlays (adjust for theme) */}
         <div
           className={`pointer-events-none absolute inset-0 transition duration-500 ${
@@ -31,7 +32,7 @@ const TimelineCard = ({ item, side, isDark }) => {
           }`}
         />
 
-        <div className="relative flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-5">
+        <div className="relative flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-5 card">
           <div
             className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ring-1 transition duration-500 ${
               isDark
@@ -156,7 +157,7 @@ export default function EducationTimeline({ theme }) {
           <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-red-200">
             <FaCalendarAlt /> Education & Timeline
           </span>
-          <h2 className={`mb-3 text-4xl font-black sm:text-5xl ${isDark ? "text-white" : "text-slate-950"}`}>Education Journey</h2>
+          <h2 className={`mb-3 text-4xl font-black sm:text-5xl fancy-heading ${isDark ? "text-white" : "text-slate-950"}`}>Education Journey</h2>
           <p className={`text-lg ${isDark ? "text-red-300" : "text-red-700"}`}>My academic and professional learning timeline</p>
         </div>
 

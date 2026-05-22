@@ -10,7 +10,7 @@ export default function ThemeToggle({ theme, onToggle }) {
       onClick={onToggle}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.96 }}
-      className="group relative inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-white/70 px-4 py-2 text-sm font-semibold text-slate-800 shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-500 hover:border-red-500/60 hover:shadow-glow-lg dark:bg-black/40 dark:text-white dark:hover:border-red-700/30 dark:hover:shadow-[0_0_40px_rgba(127,29,29,0.45)]"
+      className="group relative inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-white/70 px-4 py-2 text-sm font-semibold text-slate-800 shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-500 hover:border-red-500/60 hover:shadow-glow-lg dark:bg-black/40 dark:text-white dark:hover:border-red-700/30 dark:hover:shadow-[0_0_40px_rgba(127,29,29,0.45)] btn-secondary"
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
       <motion.span

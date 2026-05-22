@@ -436,7 +436,7 @@ const SkillsSection = ({ theme }) => {
   ];
 
   return (
-    <section id="skills" className="relative overflow-hidden bg-[#070707] px-4 py-24 text-white transition-all duration-500 sm:px-6">
+    <section id="skills" className="relative overflow-hidden bg-white text-slate-900 dark:bg-[#070707] dark:text-white px-4 py-24 transition-all duration-500 sm:px-6">
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-red-600/18 blur-3xl" />
         <div className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-orange-500/10 blur-3xl" />
@@ -453,13 +453,13 @@ const SkillsSection = ({ theme }) => {
           transition={{ duration: 0.6 }}
           className="relative mb-16 text-center"
         >
-          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-red-200/80 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur-xl">
+          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/10 bg-red-50/10 dark:bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-red-600/80 dark:text-red-200/80 shadow-[0_0_0_1px_rgba(0,0,0,0.03)] backdrop-blur-xl">
             Capability Map
           </div>
-          <h2 className="mb-4 text-4xl font-black tracking-tight text-white md:text-5xl">
+          <h2 className="mb-4 text-4xl font-black tracking-tight text-slate-900 dark:text-white md:text-5xl">
             My <span className="bg-gradient-to-r from-red-400 via-red-500 to-orange-400 bg-clip-text text-transparent">Skills</span>
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-white/65 transition-all duration-500">
+          <p className="mx-auto max-w-2xl text-lg text-slate-700 dark:text-white/65 transition-all duration-500">
             Expertise in modern technologies and tools, presented with a sharper visual hierarchy and premium motion.
           </p>
         </motion.div>
@@ -474,10 +474,10 @@ const SkillsSection = ({ theme }) => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
             >
-              <div className="mb-6 flex items-center gap-4">
-                <h3 className="text-2xl font-bold tracking-tight text-white">{category.category}</h3>
+                <div className="mb-6 flex items-center gap-4">
+                <h3 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">{category.category}</h3>
                 <div className="h-px flex-1 bg-gradient-to-r from-red-500/50 via-white/15 to-transparent" />
-                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-white/55 backdrop-blur-md">
+                <span className="rounded-full border border-slate-200/20 bg-slate-50/20 dark:border-white/10 dark:bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-slate-600 dark:text-white/55 backdrop-blur-md">
                   {category.skills.length} items
                 </span>
               </div>
@@ -493,21 +493,98 @@ const SkillsSection = ({ theme }) => {
                     <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${skill.color} opacity-0 blur-xl transition duration-500 group-hover:opacity-25`} />
                     <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-white/10 via-white/5 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
 
-                    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/6 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.22)] backdrop-blur-2xl transition-all duration-500 hover:border-white/20 hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(220,38,38,0.12)]">
+                    <div className="skill-card relative overflow-hidden rounded-3xl border border-slate-200/10 dark:border-white/10 bg-white/6 dark:bg-zinc-900/30 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.22)] backdrop-blur-2xl transition-all duration-500 hover:border-white/20 hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(220,38,38,0.12)]">
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)] opacity-0 transition duration-500 group-hover:opacity-100" />
 
                       <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-white/15 to-white/5 shadow-inner shadow-black/20 transition-all duration-500 group-hover:scale-110 group-hover:border-white/20">
-                        <motion.div
-                          animate={{ rotate: [0, 8, -8, 0] }}
-                          transition={{ duration: 4.5, repeat: Infinity, repeatDelay: 1 }}
-                          className={`text-2xl bg-gradient-to-r ${skill.color} bg-clip-text text-transparent`}
-                        >
-                          <skill.icon />
-                        </motion.div>
+                        {
+                          (() => {
+                            // map skill names to Simple Icons slugs when they differ
+                            const slugMap = {
+                              'React': ['react'],
+                              'HTML': ['html5'],
+                              'CSS': ['css3'],
+                              'Next.js': ['nextdotjs'],
+                              'Node.js': ['nodedotjs','node-dot-js'],
+                              'Python': ['python'],
+                              'Java': ['java'],
+                              'Docker': ['docker'],
+                              'MySQL': ['mysql'],
+                              'MongoDB': ['mongodb'],
+                              'AWS': ['amazonaws','aws'],
+                              'Github': ['github'],
+                              'Git': ['git'],
+                              'VS Code': ['visualstudiocode','vscode'],
+                              'Jupyter Notebook': ['jupyter'],
+                              'Canva': ['canva'],
+                              'Word': ['microsoftword'],
+                              'Excel': ['microsoftexcel'],
+                              'PowerPoint': ['microsoftpowerpoint']
+                            };
+
+                            const candidates = slugMap[skill.name] || [skill.name.toLowerCase().replace(/[^a-z0-9]/g, '')];
+                            const primary = `https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/${candidates[0]}.svg`;
+                            const fallback = candidates[1] ? `https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/${candidates[1]}.svg` : null;
+
+                            // color map for light-mode tinting (hex values)
+                            const colorMap = {
+                              'React': '#61DAFB',
+                              'HTML': '#E34F26',
+                              'CSS': '#1572B6',
+                              'Next.js': '#000000',
+                              'Node.js': '#339933',
+                              'Python': '#3776AB',
+                              'Java': '#007396',
+                              'Docker': '#2496ED',
+                              'MySQL': '#4479A1',
+                              'MongoDB': '#47A248',
+                              'AWS': '#FF9900',
+                              'Github': '#181717',
+                              'Git': '#F05032',
+                              'VS Code': '#007ACC',
+                              'Jupyter Notebook': '#F37626',
+                              'Canva': '#00C4CC',
+                              'Word': '#2B579A',
+                              'Excel': '#217346',
+                              'PowerPoint': '#D24726'
+                            };
+
+                            const tint = colorMap[skill.name] || '#94A3B8';
+
+                            return (
+                              <>
+                                <motion.div
+                                  aria-hidden
+                                  animate={{ rotate: [0, 8, -8, 0] }}
+                                  transition={{ duration: 4.5, repeat: Infinity, repeatDelay: 1 }}
+                                  className="brand-mask"
+                                  style={{
+                                    WebkitMaskImage: `url(${primary})`,
+                                    maskImage: `url(${primary})`,
+                                    WebkitMaskSize: 'contain',
+                                    maskSize: 'contain',
+                                    WebkitMaskRepeat: 'no-repeat',
+                                    maskRepeat: 'no-repeat',
+                                    WebkitMaskPosition: 'center',
+                                    maskPosition: 'center',
+                                    background: tint
+                                  }}
+                                />
+
+                                {/* React Icon fallback — show only in dark mode */}
+                                <div className="absolute inset-0 flex items-center justify-center hidden dark:flex">
+                                  <div className="text-2xl text-white">
+                                    <skill.icon />
+                                  </div>
+                                </div>
+                              </>
+                            );
+                          })()
+                        }
                       </div>
 
                       <div className="relative mt-4 flex items-center justify-between gap-3">
-                        <p className="text-sm font-semibold tracking-wide text-white transition-colors duration-300 group-hover:text-red-200">
+                        <p className="skill-name text-sm font-semibold tracking-wide text-slate-900 dark:text-white transition-colors duration-300 group-hover:text-red-200">
                           {skill.name}
                         </p>
                         <span className="h-2 w-2 rounded-full bg-gradient-to-r from-red-400 to-orange-400 shadow-[0_0_12px_rgba(248,113,113,0.9)]" />
@@ -517,7 +594,7 @@ const SkillsSection = ({ theme }) => {
                         <div className={`h-full w-full rounded-full bg-gradient-to-r ${skill.color} opacity-75 transition-transform duration-500 group-hover:scale-x-110 group-hover:opacity-100`} />
                       </div>
 
-                      <div className="relative mt-3 text-[11px] uppercase tracking-[0.3em] text-white/40 transition-colors duration-300 group-hover:text-white/65">
+                      <div className="relative mt-3 text-[11px] uppercase tracking-[0.3em] premium-text text-slate-600 dark:text-white/40 transition-colors duration-300 group-hover:text-white/65">
                         Premium stack
                       </div>
                     </div>

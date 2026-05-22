@@ -92,7 +92,7 @@ function ChatBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="mb-4 w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-3xl border border-red-500/25 bg-white/95 dark:bg-black/95 text-slate-900 dark:text-white shadow-[0_0_60px_rgba(127,29,29,0.32)] sm:w-[26rem]"
+            className="mb-4 w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-3xl border border-red-500/25 bg-white/95 dark:bg-black/95 text-slate-900 dark:text-white shadow-[0_0_60px_rgba(127,29,29,0.32)] sm:w-[26rem] card"
           >
             <div className="flex items-center justify-between border-b border-red-500/10 bg-red-50 dark:bg-red-900/95 px-4 py-3">
               <div className="flex items-center gap-3">
@@ -179,7 +179,7 @@ function ChatBot() {
                       transition={{ duration: 0.45, delay: index * 0.08 }}
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`group relative overflow-hidden rounded-2xl border ${link.border} bg-slate-100 dark:bg-slate-900/50 px-4 py-4 text-left text-slate-800 dark:text-slate-100 shadow-[0_0_0_1px_rgba(0,0,0,0.1)] transition-all duration-500 hover:border-red-500/60 hover:bg-red-50 dark:hover:bg-red-950/60 hover:shadow-[0_0_30px_rgba(220,38,38,0.35)] dark:hover:shadow-[0_0_30px_rgba(220,38,38,0.45)]`}
+                      className={`group relative overflow-hidden rounded-2xl border ${link.border} bg-slate-100 dark:bg-slate-900/50 px-4 py-4 text-left text-slate-800 dark:text-slate-100 shadow-[0_0_0_1px_rgba(0,0,0,0.1)] transition-all duration-500 hover:border-red-500/60 hover:bg-red-50 dark:hover:bg-red-950/60 hover:shadow-[0_0_30px_rgba(220,38,38,0.35)] dark:hover:shadow-[0_0_30px_rgba(220,38,38,0.45)] card`}
                     >
                       <div
                         className={`absolute inset-0 bg-gradient-to-r ${link.glow} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-60`}
@@ -212,7 +212,7 @@ function ChatBot() {
         onClick={() => setIsOpen((current) => !current)}
         whileHover={{ scale: 1.05, y: -2 }}
         whileTap={{ scale: 0.95 }}
-        className="group relative flex h-16 w-16 items-center justify-center rounded-full border border-red-400/20 bg-gradient-to-br from-red-700 via-red-800 to-black text-white shadow-[0_0_30px_rgba(220,38,38,0.38)] transition-all duration-500 hover:shadow-[0_0_50px_rgba(220,38,38,0.62)]"
+        className="group relative flex h-16 w-16 items-center justify-center rounded-full border border-red-400/20 bg-gradient-to-br from-red-700 via-red-800 to-black text-white shadow-[0_0_30px_rgba(220,38,38,0.38)] transition-all duration-500 hover:shadow-[0_0_50px_rgba(220,38,38,0.62)] btn-primary"
         aria-label="Toggle chatbot"
       >
         <span className="absolute inset-0 animate-pulse rounded-full border border-red-500/20" />

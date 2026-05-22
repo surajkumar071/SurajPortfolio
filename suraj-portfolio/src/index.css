@@ -126,3 +126,149 @@ html {
 img {
   transition: opacity 500ms ease, transform 500ms ease;
 }
+
+/* Premium theme variables and component helpers */
+:root {
+  --bg-soft: #070708;
+  --glass: rgba(255,255,255,0.06);
+  --card-bg: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  --accent-gradient: linear-gradient(90deg,#ef4444,#fb7185,#f97316);
+  --accent: #ef4444;
+}
+
+html:not(.dark) :root {
+  --bg-soft: #fbfafb;
+  --glass: rgba(0,0,0,0.03);
+  --card-bg: linear-gradient(135deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
+  --accent-gradient: linear-gradient(90deg,#ef4444,#fb7185,#f97316);
+  --accent: #ef4444;
+}
+
+/* Fancy gradient heading */
+.fancy-heading {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 100%;
+  transition: background-position 600ms ease, transform 300ms ease;
+}
+.fancy-heading:hover {
+  background-position: 100% 0;
+  transform: translateY(-6px) scale(1.02);
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 9999px;
+  color: white;
+  background: var(--accent-gradient);
+  box-shadow: 0 10px 34px rgba(239,68,68,0.14);
+  transition: transform 240ms cubic-bezier(.2,.9,.3,1), box-shadow 240ms;
+}
+.btn-primary:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 22px 70px rgba(239,68,68,0.2); }
+.btn-primary:active { transform: translateY(-1px) scale(0.997); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: inherit;
+  transition: transform 200ms ease, background 200ms ease, box-shadow 200ms;
+}
+.btn-secondary:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 14px 40px rgba(2,6,23,0.45); }
+
+/* Card / glass styles */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.25rem;
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.card:hover { transform: translateY(-10px); box-shadow: var(--tw-shadow-elevate, 0 22px 80px rgba(2,6,23,0.6)); }
+
+/* Link underline animation */
+.link-underline { position: relative; display: inline-block; }
+.link-underline::after {
+  content: '';
+  height: 2px; left: 0; bottom: -2px; position: absolute; width: 100%;
+  background: linear-gradient(90deg, rgba(239,68,68,0.9), rgba(251,113,133,0.8));
+  transform-origin: left center; transform: scaleX(0);
+  transition: transform 300ms ease;
+}
+.link-underline:hover::after { transform: scaleX(1); }
+
+/* Shimmer helper for subtle shine */
+.shimmer {
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Make images feel interactive */
+.img-interactive { transition: transform 900ms cubic-bezier(.2,.9,.3,1), box-shadow 500ms; }
+.img-interactive:hover { transform: scale(1.04) translateY(-8px); box-shadow: 0 36px 110px rgba(2,6,23,0.6); }
+
+/* Brand icon helpers: make monochrome SVGs visible in dark backgrounds (skills card) */
+.brand-icon { width: 2.25rem; height: 2.25rem; display: block; transition: filter 200ms ease; filter: none; }
+/* Force high-contrast icons within the skills section (section uses dark background even in light mode) */
+#skills .brand-icon { filter: invert(1) brightness(2) saturate(0.8); }
+/* Keep behavior consistent for site-level dark mode too */
+html.dark .brand-icon { filter: invert(1) brightness(2) saturate(0.8); }
+
+/* Light-mode skill card polish: better contrast, hover, transitions and subtle animation */
+html:not(.dark) #skills .skill-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,250,250,0.98));
+  border: 1px solid rgba(2,6,23,0.06);
+  color: #0f172a;
+  transition: transform 350ms cubic-bezier(.2,.9,.3,1), box-shadow 350ms ease, background 350ms ease, border-color 350ms ease;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.06);
+}
+
+html:not(.dark) #skills .skill-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 90px rgba(2,6,23,0.12);
+  border-color: rgba(220,38,38,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(247,247,248,1));
+}
+
+html:not(.dark) #skills .skill-card .brand-icon {
+  transition: transform 420ms cubic-bezier(.2,.9,.3,1), filter 220ms ease;
+  transform-origin: center;
+}
+
+html:not(.dark) #skills .skill-card:hover .brand-icon {
+  transform: rotate(8deg) scale(1.06);
+  filter: none;
+}
+
+/* Ensure titles and small text contrast correctly in light mode */
+html:not(.dark) #skills .skill-card .skill-name {
+  color: #0f172a;
+}
+html:not(.dark) #skills .skill-card .premium-text {
+  color: rgba(15,23,42,0.45);
+}
+
+/* Subtle shimmer for progress bar on hover */
+html:not(.dark) #skills .skill-card .progress-inner {
+  transition: transform 450ms cubic-bezier(.2,.9,.3,1), opacity 300ms ease;
+}
+html:not(.dark) #skills .skill-card:hover .progress-inner {
+  transform: scaleX(1.03);
+  opacity: 1;
+}
+
+/* Mask-based brand logo so we can tint logos in light mode */
+.brand-mask { width: 2.25rem; height: 2.25rem; display: block; background-size: contain; background-position: center; background-repeat: no-repeat; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain; }
+html:not(.dark) #skills .brand-mask { background-color: transparent; }
+

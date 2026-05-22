@@ -40,7 +40,7 @@ export default function HeroSlider({ theme }) {
 
     timeoutRef.current = setTimeout(() => {
       setIndex((current) => (current + 1) % slides.length);
-    }, 3000);
+    }, 4500);
 
     return () => clearTimeout(timeoutRef.current);
   }, [index, isPaused]);
@@ -49,14 +49,14 @@ export default function HeroSlider({ theme }) {
 
   const textVariants = {
     initial: { x: -40, opacity: 0 },
-    animate: { x: 0, opacity: 1, transition: { duration: 0.7 } },
-    exit: { x: -20, opacity: 0, transition: { duration: 0.5 } },
+    animate: { x: 0, opacity: 1, transition: { duration: 0.9 } },
+    exit: { x: -20, opacity: 0, transition: { duration: 0.6 } },
   };
 
   const imageVariants = {
     initial: { x: 60, opacity: 0, scale: 1.02 },
-    animate: { x: 0, opacity: 1, scale: 1, transition: { duration: 0.8 } },
-    exit: { x: 30, opacity: 0, scale: 1.03, transition: { duration: 0.6 } },
+    animate: { x: 0, opacity: 1, scale: 1, transition: { duration: 1.1 } },
+    exit: { x: 30, opacity: 0, scale: 1.03, transition: { duration: 0.8 } },
   };
 
   return (
@@ -72,7 +72,7 @@ export default function HeroSlider({ theme }) {
       />
 
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -right-40 top-12 h-96 w-96 rounded-full bg-gradient-to-r from-red-800/30 to-transparent blur-3xl animate-[float_8s_linear_infinite]" />
+      <div className="absolute -right-40 top-12 h-96 w-96 rounded-full bg-gradient-to-r from-red-800/30 to-transparent blur-3xl animate-[float_12s_linear_infinite]" />
         <div className="absolute bottom-0 left-10 h-80 w-80 rounded-full bg-gradient-to-r from-red-600/20 to-transparent blur-3xl" />
       </div>
 
@@ -88,13 +88,7 @@ export default function HeroSlider({ theme }) {
                 exit="exit"
                 className="max-w-xl space-y-6"
               >
-                <h2
-                  className={`bg-gradient-to-r text-4xl font-extrabold leading-tight bg-clip-text sm:text-5xl lg:text-6xl ${
-                    isDark
-                      ? "from-red-400 to-red-200 text-transparent drop-shadow-lg"
-                      : "from-red-600 to-red-400 text-transparent drop-shadow-lg"
-                  }`}
-                >
+                <h2 className={`fancy-heading text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl`}>
                   {slides[index].title}
                 </h2>
 
@@ -103,26 +97,12 @@ export default function HeroSlider({ theme }) {
                 </p>
 
                 <div className="mt-6 flex gap-4">
-                  <a
-                    href={slides[index].ctaPrimary.href}
-                    className={`inline-flex items-center gap-2 rounded-full px-6 py-3 font-bold text-white transition-all duration-700 hover:scale-105 ${
-                      isDark
-                        ? "bg-gradient-to-r from-red-600 to-red-500 shadow-glow"
-                        : "bg-gradient-to-r from-red-600 to-red-500 shadow-[0_14px_30px_rgba(220,38,38,0.2)]"
-                    }`}
-                  >
+                  <a href={slides[index].ctaPrimary.href} className="btn-primary">
                     {slides[index].ctaPrimary.text}
                     <FaArrowRight />
                   </a>
 
-                  <a
-                    href={slides[index].ctaSecondary.href}
-                    className={`inline-flex items-center gap-2 rounded-full border px-6 py-3 font-semibold transition-all duration-700 ${
-                      isDark
-                        ? "border-red-600/30 bg-black/40 text-red-100 hover:bg-black/30"
-                        : "border-red-600/25 bg-white/70 text-slate-800 hover:border-red-600/40 hover:bg-white hover:shadow-[0_12px_28px_rgba(127,29,29,0.10)]"
-                    }`}
-                  >
+                  <a href={slides[index].ctaSecondary.href} className="btn-secondary">
                     {slides[index].ctaSecondary.text}
                   </a>
                 </div>
@@ -161,7 +141,7 @@ export default function HeroSlider({ theme }) {
                   initial="initial"
                   animate="animate"
                   exit="exit"
-                  className={`relative overflow-hidden rounded-2xl border shadow-2xl transition-all duration-700 ${
+                  className={`relative overflow-hidden rounded-2xl border transition-all duration-700 card ${
                     isDark
                       ? "border-red-800/10 bg-gradient-to-br from-red-900/10 to-transparent"
                       : "border-red-200/50 bg-white/70 shadow-[0_24px_70px_rgba(127,29,29,0.10)] backdrop-blur-xl"
@@ -176,7 +156,7 @@ export default function HeroSlider({ theme }) {
                     src={slides[index].img}
                     alt={slides[index].title}
                     loading="eager"
-                    className="block h-72 w-full object-cover transition-transform duration-700 hover:scale-105 sm:h-80 md:h-96 lg:h-[520px]"
+                    className="block h-72 w-full object-cover img-interactive sm:h-80 md:h-96 lg:h-[520px]"
                     initial={{ scale: 1.03 }}
                     animate={{ scale: 1 }}
                     exit={{ scale: 1.02 }}

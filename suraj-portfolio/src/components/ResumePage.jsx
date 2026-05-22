@@ -114,7 +114,7 @@ export default function ResumePage({ theme }) {
           transition={{ duration: 0.6 }}
           className="mb-10 text-center"
         >
-          <h1 className="bg-gradient-to-r from-red-100 via-red-300 to-red-500 bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-6xl">
+          <h1 className="bg-gradient-to-r from-red-100 via-red-300 to-red-500 bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-6xl fancy-heading">
             My Resume
           </h1>
           <p
@@ -219,6 +219,7 @@ export default function ResumePage({ theme }) {
                 : "border-red-200/70 bg-white/70 shadow-[0_20px_60px_rgba(127,29,29,0.14)]"
             }`}
           >
+            <div className="card">
             {/* PDF loading animation */}
             {pdfLoading && !pdfError && (
               <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-black/40 backdrop-blur-sm">
@@ -265,6 +266,7 @@ export default function ResumePage({ theme }) {
                 </p>
               </div>
             )}
+            </div>
           </div>
         </motion.div>
       </div>
