@@ -453,9 +453,7 @@ const SkillsSection = ({ theme }) => {
           transition={{ duration: 0.6 }}
           className="relative mb-16 text-center"
         >
-          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/10 bg-red-50/10 dark:bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-red-600/80 dark:text-red-200/80 shadow-[0_0_0_1px_rgba(0,0,0,0.03)] backdrop-blur-xl">
-            Capability Map
-          </div>
+          {/* capability badge removed per request */}
           <h2 className="mb-4 text-4xl font-black tracking-tight text-slate-900 dark:text-white md:text-5xl">
             My <span className="bg-gradient-to-r from-red-400 via-red-500 to-orange-400 bg-clip-text text-transparent">Skills</span>
           </h2>

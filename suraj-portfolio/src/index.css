@@ -132,7 +132,7 @@ img {
   --bg-soft: #070708;
   --glass: rgba(255,255,255,0.06);
   --card-bg: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  --accent-gradient: linear-gradient(90deg,#ef4444,#fb7185,#f97316);
+  --accent-gradient: linear-gradient(90deg,#ef4444,#f97316);
   --accent: #ef4444;
 }
 
@@ -140,7 +140,7 @@ html:not(.dark) :root {
   --bg-soft: #fbfafb;
   --glass: rgba(0,0,0,0.03);
   --card-bg: linear-gradient(135deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
-  --accent-gradient: linear-gradient(90deg,#ef4444,#fb7185,#f97316);
+  --accent-gradient: linear-gradient(90deg,#ef4444,#f97316);
   --accent: #ef4444;
 }
 

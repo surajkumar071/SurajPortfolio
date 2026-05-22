@@ -154,9 +154,7 @@ export default function EducationTimeline({ theme }) {
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-12">
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-red-200">
-            <FaCalendarAlt /> Education & Timeline
-          </span>
+          {/* badge removed per request */}
           <h2 className={`mb-3 text-4xl font-black sm:text-5xl fancy-heading ${isDark ? "text-white" : "text-slate-950"}`}>Education Journey</h2>
           <p className={`text-lg ${isDark ? "text-red-300" : "text-red-700"}`}>My academic and professional learning timeline</p>
         </div>
