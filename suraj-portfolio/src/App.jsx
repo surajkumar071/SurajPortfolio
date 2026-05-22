@@ -436,20 +436,32 @@ const SkillsSection = ({ theme }) => {
   ];
 
   return (
-    <section id="skills" className="bg-white px-4 py-20 transition-all duration-500 dark:bg-[#050505] sm:px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="skills" className="relative overflow-hidden bg-[#070707] px-4 py-24 text-white transition-all duration-500 sm:px-6">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-red-600/18 blur-3xl" />
+        <div className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-orange-500/10 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:56px_56px] opacity-20" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(220,38,38,0.12),transparent_45%)]" />
+      </div>
+
+      <div className="relative mx-auto max-w-6xl">
         {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="relative mb-16 text-center"
         >
-          <h2 className="mb-4 text-4xl font-black text-slate-950 transition-all duration-500 md:text-5xl dark:text-white">
-            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">Skills</span>
+          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-red-200/80 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur-xl">
+            Capability Map
+          </div>
+          <h2 className="mb-4 text-4xl font-black tracking-tight text-white md:text-5xl">
+            My <span className="bg-gradient-to-r from-red-400 via-red-500 to-orange-400 bg-clip-text text-transparent">Skills</span>
           </h2>
-          <p className="text-lg text-slate-600 transition-all duration-500 dark:text-gray-400">Expertise in modern technologies and tools</p>
+          <p className="mx-auto max-w-2xl text-lg text-white/65 transition-all duration-500">
+            Expertise in modern technologies and tools, presented with a sharper visual hierarchy and premium motion.
+          </p>
         </motion.div>
 
         {/* Skills Grid */}
@@ -462,28 +474,52 @@ const SkillsSection = ({ theme }) => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
             >
-              <h3 className="mb-6 text-2xl font-bold text-slate-900 transition-all duration-500 dark:text-white">{category.category}</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+              <div className="mb-6 flex items-center gap-4">
+                <h3 className="text-2xl font-bold tracking-tight text-white">{category.category}</h3>
+                <div className="h-px flex-1 bg-gradient-to-r from-red-500/50 via-white/15 to-transparent" />
+                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-white/55 backdrop-blur-md">
+                  {category.skills.length} items
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
                 {category.skills.map((skill, skillIndex) => (
                   <motion.div
                     key={skillIndex}
-                    whileHover={{ scale: 1.08, y: -8 }}
+                    whileHover={{ scale: 1.05, y: -10 }}
                     whileTap={{ scale: 0.95 }}
                     className="group relative"
                   >
-                    {/* Animated border gradient */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-600/0 via-red-600/20 to-red-600/0 opacity-0 transition duration-300 group-hover:opacity-100" />
+                    <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${skill.color} opacity-0 blur-xl transition duration-500 group-hover:opacity-25`} />
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-white/10 via-white/5 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
 
-                    {/* Card */}
-                    <div className="relative rounded-2xl border border-red-200/70 bg-white/80 p-6 backdrop-blur-xl transition-all duration-500 hover:border-red-500/50 hover:shadow-lg hover:shadow-red-500/10 dark:border-red-800/40 dark:bg-zinc-950/80 dark:bg-none dark:hover:shadow-black/30">
-                      <motion.div
-                        animate={{ rotate: [0, 10, -10, 0] }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                        className={`text-4xl mb-3 text-transparent bg-clip-text bg-gradient-to-r ${skill.color}`}
-                      >
-                        <skill.icon />
-                      </motion.div>
-                      <p className="font-bold text-slate-900 transition group-hover:text-red-500 dark:text-white dark:group-hover:text-red-300">{skill.name}</p>
+                    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/6 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.22)] backdrop-blur-2xl transition-all duration-500 hover:border-white/20 hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(220,38,38,0.12)]">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)] opacity-0 transition duration-500 group-hover:opacity-100" />
+
+                      <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-white/15 to-white/5 shadow-inner shadow-black/20 transition-all duration-500 group-hover:scale-110 group-hover:border-white/20">
+                        <motion.div
+                          animate={{ rotate: [0, 8, -8, 0] }}
+                          transition={{ duration: 4.5, repeat: Infinity, repeatDelay: 1 }}
+                          className={`text-2xl bg-gradient-to-r ${skill.color} bg-clip-text text-transparent`}
+                        >
+                          <skill.icon />
+                        </motion.div>
+                      </div>
+
+                      <div className="relative mt-4 flex items-center justify-between gap-3">
+                        <p className="text-sm font-semibold tracking-wide text-white transition-colors duration-300 group-hover:text-red-200">
+                          {skill.name}
+                        </p>
+                        <span className="h-2 w-2 rounded-full bg-gradient-to-r from-red-400 to-orange-400 shadow-[0_0_12px_rgba(248,113,113,0.9)]" />
+                      </div>
+
+                      <div className="relative mt-4 h-1.5 overflow-hidden rounded-full bg-white/8">
+                        <div className={`h-full w-full rounded-full bg-gradient-to-r ${skill.color} opacity-75 transition-transform duration-500 group-hover:scale-x-110 group-hover:opacity-100`} />
+                      </div>
+
+                      <div className="relative mt-3 text-[11px] uppercase tracking-[0.3em] text-white/40 transition-colors duration-300 group-hover:text-white/65">
+                        Premium stack
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -511,9 +547,9 @@ const ProjectsSection = ({ theme }) => {
       title: "Portfolio Website",
       description: "Modern, responsive portfolio with smooth animations and glassmorphic design.",
       tags: ["React", "Framer Motion", "Tailwind", "Vite"],
-      image: "🎨",
+      image: "/portfolio.jpg",
       github: "#",
-      live: "#",
+      live: "https://chandani-portfolio-murex.vercel.app/",
     },
   ];
 
