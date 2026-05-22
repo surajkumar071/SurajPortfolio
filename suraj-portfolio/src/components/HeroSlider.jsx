@@ -152,18 +152,23 @@ export default function HeroSlider({ theme }) {
                     aria-hidden="true"
                   />
 
-                  <motion.img
-                    src={slides[index].img}
-                    alt={slides[index].title}
-                    loading="eager"
-                    className="block h-72 w-full object-cover img-interactive sm:h-80 md:h-96 lg:h-[520px]"
-                    initial={{ scale: 1.03 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 1.02 }}
-                    transition={{ duration: 1 }}
-                  />
+                  <div className="relative premium-image-wrap">
+                    <motion.img
+                      src={slides[index].img}
+                      alt={slides[index].title}
+                      loading="eager"
+                      className="premium-image img-interactive h-72 w-full sm:h-80 md:h-96 lg:h-[520px]"
+                      initial={{ scale: 1.03 }}
+                      animate={{ scale: 1 }}
+                      exit={{ scale: 1.02 }}
+                      transition={{ duration: 1 }}
+                    />
 
-                  <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-red-700/20 blur-3xl mix-blend-screen" />
+                    <div className="image-vignette" aria-hidden="true" />
+                    <div className="image-border-glow" aria-hidden="true" />
+                    <div className="premium-frame" aria-hidden="true" />
+                    <div className="image-accent bg-red-700/20" aria-hidden="true" />
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>
