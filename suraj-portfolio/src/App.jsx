@@ -307,10 +307,10 @@ const HeroSection = ({ theme }) => {
 // ============ ABOUT SECTION ============
 const AboutSection = ({ theme }) => {
   const stats = [
-    { label: "Projects Completed", value: "25+" },
-    { label: "Happy Clients", value: "15+" },
-    { label: "Years Experience", value: "3+" },
-    { label: "Technologies", value: "15+" },
+    { label: "Projects Completed", value: "2+" },
+    { label: "Happy Clients", value: "5+" },
+    { label: "Years Experience", value: "1+" },
+    { label: "Technologies", value: "10+" },
   ];
 
   return (
