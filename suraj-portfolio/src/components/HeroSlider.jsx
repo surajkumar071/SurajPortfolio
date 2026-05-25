@@ -153,7 +153,7 @@ export default function HeroSlider({ theme }) {
                   />
 
                   <div className="relative premium-image-wrap w-full overflow-hidden rounded-2xl">
-                    <div className="relative w-full h-56 sm:h-80 md:h-96 lg:h-[520px] overflow-hidden rounded-2xl">
+                    <div className="relative w-full aspect-square sm:h-80 md:h-96 lg:h-[520px] overflow-hidden rounded-2xl">
                       <motion.img
                         src={slides[index].img}
                         alt={slides[index].title}
