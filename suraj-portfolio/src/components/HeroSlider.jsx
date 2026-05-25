@@ -5,7 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 const slides = [
   {
     id: 1,
-    title: "Hi, I'm Suraj Kumar",
+    title: "Hi, I'm Suraj",
     subtitle: "Data Science and Agentic AI Developer",
     img: "/profile.jpg",
     ctaPrimary: { text: "View Projects", href: "#projects" },
@@ -133,7 +133,7 @@ export default function HeroSlider({ theme }) {
           </div>
 
           <div className="relative z-10 flex items-center justify-center">
-            <div className="w-full max-w-md md:max-w-lg lg:max-w-xl">
+            <div className="w-full max-w-sm px-1 sm:max-w-md sm:px-0 md:max-w-lg lg:max-w-xl">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={slides[index].id}
@@ -141,10 +141,10 @@ export default function HeroSlider({ theme }) {
                   initial="initial"
                   animate="animate"
                   exit="exit"
-                  className={`relative overflow-hidden rounded-2xl border transition-all duration-700 card ${
+                  className={`hero-image-card relative overflow-hidden rounded-2xl transition-all duration-700 ${
                     isDark
-                      ? "border-red-800/10 bg-gradient-to-br from-red-900/10 to-transparent"
-                      : "border-red-200/50 bg-white/70 shadow-[0_24px_70px_rgba(127,29,29,0.10)] backdrop-blur-xl"
+                      ? "bg-gradient-to-br from-red-900/10 to-transparent"
+                      : "bg-white/70 shadow-[0_24px_70px_rgba(127,29,29,0.10)] backdrop-blur-xl"
                   }`}
                 >
                   <div
@@ -157,11 +157,11 @@ export default function HeroSlider({ theme }) {
                       src={slides[index].img}
                       alt={slides[index].title}
                       loading="eager"
-                      className="premium-image img-interactive h-72 w-full sm:h-80 md:h-96 lg:h-[520px]"
-                      initial={{ scale: 1.03 }}
-                      animate={{ scale: 1 }}
-                      exit={{ scale: 1.02 }}
-                      transition={{ duration: 1 }}
+                      className="premium-image img-interactive hero-portrait-image h-[clamp(17rem,70vw,22rem)] w-full sm:h-80 md:h-96 lg:h-[520px]"
+                      initial={{ scale: 1.08, y: 10, rotate: -1.5 }}
+                      animate={{ scale: 1, y: 0, rotate: 0 }}
+                      exit={{ scale: 1.04, y: 6, rotate: 1 }}
+                      transition={{ duration: 1.1, ease: [0.2, 0.9, 0.3, 1] }}
                     />
 
                     <div className="image-vignette" aria-hidden="true" />

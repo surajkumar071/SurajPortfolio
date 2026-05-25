@@ -146,16 +146,16 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, currentPath,
           <motion.a
             href="/"
             whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-3 transition duration-300"
+            className="premium-brand group flex items-center gap-3 transition duration-300"
             aria-label="Suraj Kumar home"
           >
             <img
               src="/site-logo.png"
               alt="Suraj logo"
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              className="h-10 w-10 rounded-full object-cover"
+              className="premium-brand-mark h-10 w-10 rounded-full object-cover"
             />
-            <span className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-base font-black leading-none text-transparent sm:text-2xl">Suraj Kumar</span>
+            <span className="premium-brand-wordmark bg-gradient-to-r from-red-600 via-rose-500 to-red-300 bg-clip-text text-base font-black leading-none text-transparent sm:text-2xl">Suraj Kumar</span>
           </motion.a>
 
           <div className="hidden gap-2 md:flex">
@@ -163,15 +163,16 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, currentPath,
               <motion.a
                 key={item}
                 href={getHref(item)}
-                whileHover={{ scale: 1.05 }}
-                className={`rounded-full px-4 py-2 font-medium transition ${
+                whileHover={{ y: -2, scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className={`premium-nav-link rounded-full px-4 py-2 font-medium transition ${
                   isItemActive(item)
                     ? isDark
-                      ? "border border-red-500/50 bg-red-900/60 text-red-100 shadow-lg shadow-red-900/30"
-                      : "border border-red-500/40 bg-red-900/10 text-red-600 shadow-lg shadow-red-900/10"
+                      ? "premium-nav-link-active border border-red-500/50 bg-red-900/60 text-red-100 shadow-lg shadow-red-900/30"
+                      : "premium-nav-link-active border border-red-500/40 bg-red-900/10 text-red-600 shadow-lg shadow-red-900/10"
                     : isDark
-                      ? "text-gray-300 hover:bg-red-900/20 hover:text-red-100"
-                      : "text-slate-600 hover:bg-red-50 hover:text-red-500"
+                      ? "text-gray-300"
+                      : "text-slate-600"
                 }`}
               >
                 {item}
@@ -183,7 +184,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen, activeSection, currentPath,
             <ThemeToggle theme={theme} onToggle={onThemeToggle} />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="relative flex h-10 w-10 items-center justify-center text-red-600 transition hover:text-red-500 md:hidden"
+              className="premium-nav-icon relative flex h-10 w-10 items-center justify-center text-red-600 transition md:hidden"
             >
               <motion.div animate={{ rotate: mobileMenuOpen ? 90 : 0 }} transition={{ duration: 0.3 }}>
                 {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
@@ -235,7 +236,7 @@ const HeroSection = ({ theme }) => {
 
             <motion.div variants={itemVariants}>
               <h1 className="text-5xl font-black leading-tight text-slate-950 transition-all duration-500 sm:text-6xl lg:text-7xl dark:text-white">
-                Hi, I&apos;m <span className="bg-gradient-to-r from-red-600 via-red-500 to-red-400 bg-clip-text text-transparent drop-shadow-lg">Suraj Kumar</span>
+                Hi, I&apos;m <span className="bg-gradient-to-r from-red-600 via-red-500 to-red-400 bg-clip-text text-transparent drop-shadow-lg">Suraj</span>
               </h1>
             </motion.div>
 
@@ -279,24 +280,39 @@ const HeroSection = ({ theme }) => {
             </motion.div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.8 }} className="flex items-center justify-center">
-            <div className="group relative">
-              <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 3, repeat: Infinity }} className={`absolute inset-0 rounded-full bg-gradient-to-r from-red-600 to-red-400 blur-3xl transition duration-300 group-hover:opacity-50 ${isDark ? "opacity-30" : "opacity-20"}`} />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.55, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.85, type: "spring", stiffness: 90, damping: 16 }}
+            className="flex items-center justify-center"
+          >
+            <motion.div
+              whileHover={{ y: -12, scale: 1.03, rotate: -1 }}
+              transition={{ type: "spring", stiffness: 160, damping: 16 }}
+              className="hero-portrait-wrap group relative w-full max-w-md sm:max-w-lg lg:max-w-xl"
+            >
+              <div className={`hero-portrait-orb ${isDark ? "opacity-35" : "opacity-25"}`} />
+              <div className="hero-portrait-rim" />
 
-              <motion.div whileHover={{ scale: 1.05 }} className="relative h-64 w-64 overflow-hidden rounded-full border-2 border-red-200/70 shadow-2xl shadow-red-200/30 transition-all duration-500 sm:h-80 sm:w-80 dark:border-red-700/50 dark:shadow-red-900/35 group">
-                <img src="/profile.jpg" alt="Suraj Kumar" className="h-full w-full object-cover transition-transform duration-700 will-change-transform group-hover:scale-105" />
+              <div className="hero-portrait-shell">
+                <div className="hero-portrait-frame">
+                  <div className="hero-portrait-media">
+                    <img src="/profile.jpg" alt="Suraj Kumar portrait" className="premium-image hero-portrait-image img-interactive" />
+                    <div className="hero-portrait-vignette" />
+                    <div className="hero-portrait-sheen" />
+                    <div className="hero-portrait-accent" />
+                  </div>
+                </div>
+              </div>
 
-                {/* Vignette overlay for premium depth */}
-                <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/10 via-transparent to-black/20 opacity-80 transition-opacity duration-500" />
-
-                {/* Animated shine */}
-                <div className="absolute left-[-40%] top-0 h-full w-1/3 transform rotate-12 bg-white/10 blur-3xl opacity-0 group-hover:opacity-70 group-hover:left-[120%] transition-all duration-900 pointer-events-none" />
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+                className="hero-portrait-badge"
+              >
+                Premium UI
               </motion.div>
-
-              <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 2.5, repeat: Infinity }} className="absolute -bottom-4 -right-4 rounded-full border border-red-400/50 bg-gradient-to-r from-red-600 to-red-500 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-red-600/50">
-                ✓ Available
-              </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
@@ -388,6 +404,7 @@ const AboutSection = ({ theme }) => {
 
 // ============ SKILLS SECTION ============
 const SkillsSection = ({ theme }) => {
+  const isDark = theme === "dark";
   const skillCategories = [
     {
       category: "Frontend",
@@ -492,7 +509,7 @@ const SkillsSection = ({ theme }) => {
                     <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-white/10 via-white/5 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
 
                     <div className="skill-card relative overflow-hidden rounded-3xl border border-slate-200/10 dark:border-white/10 bg-white/6 dark:bg-zinc-900/30 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.22)] backdrop-blur-2xl transition-all duration-500 hover:border-white/20 hover:bg-white/10 hover:shadow-[0_20px_60px_rgba(220,38,38,0.12)]">
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)] opacity-0 transition duration-500 group-hover:opacity-100" />
+                      <div className="skill-card-glow absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100" />
 
                       <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-white/15 to-white/5 shadow-inner shadow-black/20 transition-all duration-500 group-hover:scale-110 group-hover:border-white/20">
                         {
@@ -523,6 +540,7 @@ const SkillsSection = ({ theme }) => {
                             const candidates = slugMap[skill.name] || [skill.name.toLowerCase().replace(/[^a-z0-9]/g, '')];
                             const primary = `https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/${candidates[0]}.svg`;
                             const fallback = candidates[1] ? `https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/${candidates[1]}.svg` : null;
+                            const showLightModeJavaIcon = !isDark && skill.name === 'Java';
 
                             // color map for light-mode tinting (hex values)
                             const colorMap = {
@@ -547,27 +565,35 @@ const SkillsSection = ({ theme }) => {
                               'PowerPoint': '#D24726'
                             };
 
-                            const tint = colorMap[skill.name] || '#94A3B8';
+                            const tint = !isDark && skill.name === 'Java'
+                              ? '#f97316'
+                              : colorMap[skill.name] || '#94A3B8';
 
                             return (
                               <>
-                                <motion.div
-                                  aria-hidden
-                                  animate={{ rotate: [0, 8, -8, 0] }}
-                                  transition={{ duration: 4.5, repeat: Infinity, repeatDelay: 1 }}
-                                  className="brand-mask"
-                                  style={{
-                                    WebkitMaskImage: `url(${primary})`,
-                                    maskImage: `url(${primary})`,
-                                    WebkitMaskSize: 'contain',
-                                    maskSize: 'contain',
-                                    WebkitMaskRepeat: 'no-repeat',
-                                    maskRepeat: 'no-repeat',
-                                    WebkitMaskPosition: 'center',
-                                    maskPosition: 'center',
-                                    background: tint
-                                  }}
-                                />
+                                {showLightModeJavaIcon ? (
+                                  <div className="flex h-full w-full items-center justify-center rounded-2xl bg-orange-500/10 text-2xl text-orange-500 shadow-[0_0_0_1px_rgba(249,115,22,0.18)]">
+                                    <skill.icon />
+                                  </div>
+                                ) : (
+                                  <motion.div
+                                    aria-hidden
+                                    animate={{ rotate: [0, 8, -8, 0] }}
+                                    transition={{ duration: 4.5, repeat: Infinity, repeatDelay: 1 }}
+                                    className="brand-mask"
+                                    style={{
+                                      WebkitMaskImage: `url(${primary})`,
+                                      maskImage: `url(${primary})`,
+                                      WebkitMaskSize: 'contain',
+                                      maskSize: 'contain',
+                                      WebkitMaskRepeat: 'no-repeat',
+                                      maskRepeat: 'no-repeat',
+                                      WebkitMaskPosition: 'center',
+                                      maskPosition: 'center',
+                                      background: tint
+                                    }}
+                                  />
+                                )}
 
                                 {/* React Icon fallback — show only in dark mode */}
                                 <div className="absolute inset-0 flex items-center justify-center hidden dark:flex">
@@ -590,10 +616,6 @@ const SkillsSection = ({ theme }) => {
 
                       <div className="relative mt-4 h-1.5 overflow-hidden rounded-full bg-white/8">
                         <div className={`h-full w-full rounded-full bg-gradient-to-r ${skill.color} opacity-75 transition-transform duration-500 group-hover:scale-x-110 group-hover:opacity-100`} />
-                      </div>
-
-                      <div className="relative mt-3 text-[11px] uppercase tracking-[0.3em] premium-text text-slate-600 dark:text-white/40 transition-colors duration-300 group-hover:text-white/65">
-                        Premium stack
                       </div>
                     </div>
                   </motion.div>
@@ -619,12 +641,20 @@ const ProjectsSection = ({ theme }) => {
       live: "https://smartcreationpoint.com",
     },
     {
-      title: "Portfolio Website",
+      title: "Suraj Kumar",
       description: "Modern, responsive portfolio with smooth animations and glassmorphic design.",
       tags: ["React", "Framer Motion", "Tailwind", "Vite"],
-      image: "/portfolio.jpg",
+      image: "/portfoliochand.jpg",
       github: "#",
-      live: "https://chandani-portfolio-murex.vercel.app/",
+      live: "https://suraj-portfolio-murex.vercel.app/",
+    },
+    {
+      title: "Samim Portfolio",
+      description: "Modern, responsive portfolio with smooth animations and a polished presentation.",
+      tags: ["React", "Framer Motion", "Tailwind", "Vite"],
+      image: "/portfoliosamim.jpg",
+      github: "#",
+      live: "https://samim-portfolio-two.vercel.app/",
     },
   ];
 

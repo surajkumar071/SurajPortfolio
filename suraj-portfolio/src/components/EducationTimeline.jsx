@@ -69,7 +69,7 @@ const TimelineCard = ({ item, side, isDark }) => {
                   isDark ? "border border-white/10 bg-black/25 text-red-200/90" : "border border-gray-100 bg-white/90 text-red-700"
                 }`}
               >
-                Academic Step
+                {item.title.includes("ADCA") ? "Certification" : "Academic Step"}
               </div>
             </div>
 

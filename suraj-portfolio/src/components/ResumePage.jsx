@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Document, Page, pdfjs } from "react-pdf";
-import { FaEye, FaDownload, FaTimes, FaCalendar } from "react-icons/fa";
+import { FaEye, FaDownload, FaTimes, FaCalendar, FaExpand, FaCompress, FaSearchPlus, FaSearchMinus } from "react-icons/fa";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
@@ -43,6 +43,8 @@ const particles = Array.from({ length: 14 }, (_, index) => ({
 export default function ResumePage({ theme }) {
   const isDark = theme === "dark";
   const viewerRef = useRef(null);
+  const fullscreenModalRef = useRef(null);
+  const fullscreenViewerRef = useRef(null);
   const [selectedResume, setSelectedResume] = useState(RESUMES_LIST[0]);
   const [pdfLoading, setPdfLoading] = useState(true);
   const [pdfError, setPdfError] = useState(false);
@@ -50,6 +52,29 @@ export default function ResumePage({ theme }) {
   const [pageWidth, setPageWidth] = useState(900);
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
   const [fullscreenLoading, setFullscreenLoading] = useState(true);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [isBrowserFullscreen, setIsBrowserFullscreen] = useState(false);
+
+  const clampZoom = (value) => Math.min(1.65, Math.max(0.75, Number(value.toFixed(2))));
+
+  const handleZoomIn = () => setZoomLevel((cur) => clampZoom(cur + 0.1));
+  const handleZoomOut = () => setZoomLevel((cur) => clampZoom(cur - 0.1));
+  const handleResetZoom = () => setZoomLevel(1);
+
+  const toggleBrowserFullscreen = async () => {
+    const target = fullscreenModalRef.current;
+    if (!target) return;
+
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else if (target.requestFullscreen) {
+        await target.requestFullscreen();
+      }
+    } catch {
+      // ignore
+    }
+  };
 
   useEffect(() => {
     const updateWidth = () => {
@@ -69,6 +94,12 @@ export default function ResumePage({ theme }) {
     }
 
     return () => resizeObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const onFullscreenChange = () => setIsBrowserFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
   }, []);
 
   return (
@@ -230,6 +261,27 @@ export default function ResumePage({ theme }) {
               </div>
             )}
 
+            {/* Inline toolbar */}
+            <div className="absolute right-4 top-4 z-20 flex items-center gap-2">
+              <button
+                onClick={handleZoomOut}
+                aria-label="Zoom out"
+                className={`inline-flex h-9 w-9 items-center justify-center rounded-full border shadow-sm hover:scale-105 ${isDark ? 'border-red-700 bg-red-900 text-red-100' : 'border-red-500/15 bg-white text-red-700'}`}
+              >
+                <FaSearchMinus />
+              </button>
+              <div className={`flex items-center justify-center rounded-full border px-3 py-1 text-sm font-semibold ${isDark ? 'border-red-700 bg-red-800 text-red-100' : 'border-red-100 bg-white text-slate-700'}`}>
+                {Math.round(zoomLevel * 100)}%
+              </div>
+              <button
+                onClick={handleZoomIn}
+                aria-label="Zoom in"
+                className={`inline-flex h-9 w-9 items-center justify-center rounded-full border shadow-sm hover:scale-105 ${isDark ? 'border-red-700 bg-red-900 text-red-100' : 'border-red-500/15 bg-white text-red-700'}`}
+              >
+                <FaSearchPlus />
+              </button>
+            </div>
+
             {/* Render PDF pages inside app instead of browser plugin */}
             <motion.div whileHover={{ scale: 1.004 }} transition={{ duration: 0.35 }} className="w-full">
               <Document
@@ -250,7 +302,7 @@ export default function ResumePage({ theme }) {
                   <Page
                     key={`resume-page-${index + 1}`}
                     pageNumber={index + 1}
-                    width={pageWidth}
+                    width={Math.round(pageWidth * zoomLevel)}
                     renderAnnotationLayer
                     renderTextLayer
                     className="overflow-hidden rounded-2xl border border-red-500/20 bg-white shadow-xl"
@@ -298,6 +350,38 @@ export default function ResumePage({ theme }) {
                 <FaTimes size={20} />
               </button>
 
+              {/* Fullscreen toolbar */}
+              <div className="absolute right-16 top-4 z-10 flex items-center gap-2">
+                <button
+                  onClick={toggleBrowserFullscreen}
+                  className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm shadow-sm hover:opacity-90 ${isDark ? 'border-red-700 bg-red-900 text-red-100' : 'border-red-200 bg-white text-slate-700'}`}
+                >
+                  {isBrowserFullscreen ? <FaCompress /> : <FaExpand />}
+                  <span className="hidden sm:inline">{isBrowserFullscreen ? "Exit" : "Browser"}</span>
+                </button>
+                <button
+                  onClick={handleZoomOut}
+                  className={`inline-flex h-9 w-9 items-center justify-center rounded-full border shadow-sm hover:scale-105 ${isDark ? 'border-red-700 bg-red-900 text-red-100' : 'border-red-500/15 bg-white text-red-700'}`}
+                >
+                  <FaSearchMinus />
+                </button>
+                <div className={`flex items-center justify-center rounded-full border px-3 py-1 text-sm font-semibold ${isDark ? 'border-red-700 bg-red-800 text-red-100' : 'border-red-100 bg-white text-slate-700'}`}>
+                  {Math.round(zoomLevel * 100)}%
+                </div>
+                <button
+                  onClick={handleZoomIn}
+                  className={`inline-flex h-9 w-9 items-center justify-center rounded-full border shadow-sm hover:scale-105 ${isDark ? 'border-red-700 bg-red-900 text-red-100' : 'border-red-500/15 bg-white text-red-700'}`}
+                >
+                  <FaSearchPlus />
+                </button>
+                <button
+                  onClick={handleResetZoom}
+                  className={`inline-flex h-9 items-center justify-center rounded-full border px-3 text-sm font-semibold transition ${isDark ? 'border-red-700 bg-red-900 text-red-100 hover:border-red-700' : 'border-red-200 bg-white text-slate-700 hover:border-red-400'}`}
+                >
+                  Fit
+                </button>
+              </div>
+
               {/* Loading overlay */}
               {fullscreenLoading && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-black/40 backdrop-blur-sm">
@@ -325,7 +409,7 @@ export default function ResumePage({ theme }) {
                     <Page
                       key={`fullscreen-page-${index + 1}`}
                       pageNumber={index + 1}
-                      width={Math.min(800, window.innerWidth - 80)}
+                      width={Math.round(Math.min(800, window.innerWidth - 80) * zoomLevel)}
                       renderAnnotationLayer
                       renderTextLayer
                       className="overflow-hidden rounded-lg border border-red-500/20 bg-white shadow-xl"
