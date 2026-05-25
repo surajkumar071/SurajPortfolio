@@ -92,9 +92,9 @@ function ChatBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="mb-4 w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-3xl border border-red-500/25 bg-white/95 dark:bg-black/95 text-slate-900 dark:text-white shadow-[0_0_60px_rgba(127,29,29,0.32)] sm:w-[26rem] card"
+              className="mb-4 w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-3xl border border-red-500/25 bg-white dark:bg-black text-slate-900 dark:text-white shadow-[0_0_60px_rgba(127,29,29,0.32)] sm:w-[26rem]"
           >
-            <div className="flex items-center justify-between border-b border-red-500/10 bg-red-50 dark:bg-red-900/95 px-4 py-3">
+            <div className="flex items-center justify-between border-b border-red-500/10 bg-red-50 dark:bg-red-900 px-4 py-3">
               <div className="flex items-center gap-3">
                 <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-red-400/25 bg-gradient-to-br from-red-500/35 via-red-800/70 to-black/80 text-red-50 shadow-[0_0_24px_rgba(220,38,38,0.28)]">
                   <FaRobot size={20} />
@@ -110,7 +110,7 @@ function ChatBot() {
                 type="button"
                 onClick={() => setIsOpen(false)}
                 aria-label="Close chatbot"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-red-400/15 bg-white/95 dark:bg-black/95 text-slate-900 dark:text-red-100 transition-all duration-500 hover:scale-105 hover:border-red-400/35 hover:bg-red-900 hover:text-white hover:shadow-[0_0_20px_rgba(220,38,38,0.32)]"
+                 className="flex h-10 w-10 items-center justify-center rounded-full border border-red-400/15 bg-white dark:bg-black text-slate-900 dark:text-red-100 transition-all duration-500 hover:scale-105 hover:border-red-400/35 hover:bg-red-900 hover:text-white hover:shadow-[0_0_20px_rgba(220,38,38,0.32)]"
               >
                 <FaTimes />
               </button>
@@ -124,7 +124,7 @@ function ChatBot() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="rounded-2xl border border-red-500/12 bg-red-100/90 dark:bg-red-900/95 p-4 text-slate-900 dark:text-white shadow-inner shadow-black/40 transition-all duration-500 hover:border-red-400/25 hover:bg-red-800 hover:shadow-[0_0_34px_rgba(0,0,0,0.6)]"
+                    className="rounded-2xl border border-red-500/12 bg-red-100 dark:bg-red-900 p-4 text-slate-900 dark:text-white shadow-inner shadow-black/40 transition-all duration-500 hover:border-red-400/25 hover:bg-red-800 hover:shadow-[0_0_34px_rgba(0,0,0,0.6)]"
               >
                 <div className="flex items-start gap-3">
                   <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-2xl border border-red-300/10 bg-gradient-to-br from-red-500/80 via-red-700/85 to-black text-white shadow-[0_0_18px_rgba(220,38,38,0.38)]">
@@ -179,7 +179,7 @@ function ChatBot() {
                       transition={{ duration: 0.45, delay: index * 0.08 }}
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`group relative overflow-hidden rounded-2xl border ${link.border} bg-slate-100 dark:bg-slate-900/50 px-4 py-4 text-left text-slate-800 dark:text-slate-100 shadow-[0_0_0_1px_rgba(0,0,0,0.1)] transition-all duration-500 hover:border-red-500/60 hover:bg-red-50 dark:hover:bg-red-950/60 hover:shadow-[0_0_30px_rgba(220,38,38,0.35)] dark:hover:shadow-[0_0_30px_rgba(220,38,38,0.45)] card`}
+                        className={`group relative overflow-hidden rounded-2xl border ${link.border} bg-slate-100 dark:bg-slate-900 px-4 py-4 text-left text-slate-800 dark:text-slate-100 shadow-[0_0_0_1px_rgba(0,0,0,0.1)] transition-all duration-500 hover:border-red-500/60 hover:bg-red-50 dark:hover:bg-red-950/60 hover:shadow-[0_0_30px_rgba(220,38,38,0.35)] dark:hover:shadow-[0_0_30px_rgba(220,38,38,0.45)]`}
                     >
                       <div
                         className={`absolute inset-0 bg-gradient-to-r ${link.glow} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-60`}

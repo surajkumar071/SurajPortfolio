@@ -297,7 +297,9 @@ const HeroSection = ({ theme }) => {
               <div className="hero-portrait-shell">
                 <div className="hero-portrait-frame">
                   <div className="hero-portrait-media">
-                    <img src="/profile.jpg" alt="Suraj Kumar portrait" className="premium-image hero-portrait-image img-interactive" />
+                    <div className="relative w-full h-56 sm:h-80 md:h-96 lg:h-[520px] overflow-hidden rounded-2xl">
+                      <img src="/profile.jpg" alt="Suraj Kumar portrait" loading="eager" className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[900ms] ease-[cubic-bezier(.2,.9,.3,1)]" />
+                    </div>
                     <div className="hero-portrait-vignette" />
                     <div className="hero-portrait-sheen" />
                     <div className="hero-portrait-accent" />

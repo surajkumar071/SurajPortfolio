@@ -133,7 +133,7 @@ export default function HeroSlider({ theme }) {
           </div>
 
           <div className="relative z-10 flex items-center justify-center">
-            <div className="w-full max-w-sm px-1 sm:max-w-md sm:px-0 md:max-w-lg lg:max-w-xl">
+            <div className="w-full px-1 sm:px-0">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={slides[index].id}
@@ -152,17 +152,19 @@ export default function HeroSlider({ theme }) {
                     aria-hidden="true"
                   />
 
-                  <div className="relative premium-image-wrap">
-                    <motion.img
-                      src={slides[index].img}
-                      alt={slides[index].title}
-                      loading="eager"
-                      className="premium-image img-interactive hero-portrait-image h-[clamp(17rem,70vw,22rem)] w-full sm:h-80 md:h-96 lg:h-[520px]"
-                      initial={{ scale: 1.08, y: 10, rotate: -1.5 }}
-                      animate={{ scale: 1, y: 0, rotate: 0 }}
-                      exit={{ scale: 1.04, y: 6, rotate: 1 }}
-                      transition={{ duration: 1.1, ease: [0.2, 0.9, 0.3, 1] }}
-                    />
+                  <div className="relative premium-image-wrap w-full overflow-hidden rounded-2xl">
+                    <div className="relative w-full h-56 sm:h-80 md:h-96 lg:h-[520px] overflow-hidden rounded-2xl">
+                      <motion.img
+                        src={slides[index].img}
+                        alt={slides[index].title}
+                        loading="eager"
+                        className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[900ms] ease-[cubic-bezier(.2,.9,.3,1)]"
+                        initial={{ scale: 1.08, y: 10, rotate: -1.5 }}
+                        animate={{ scale: 1, y: 0, rotate: 0 }}
+                        exit={{ scale: 1.04, y: 6, rotate: 1 }}
+                        transition={{ duration: 1.1, ease: [0.2, 0.9, 0.3, 1] }}
+                      />
+                    </div>
 
                     <div className="image-vignette" aria-hidden="true" />
                     <div className="image-border-glow" aria-hidden="true" />
